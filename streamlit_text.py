@@ -89,17 +89,17 @@ choice = col3.selectbox('Additive percent to add to the coating', options)
 
 st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pdms_mw} for PDMS molecular weight, and selected {choice} as percent to be added.")
 
-# Define the strings
-DM = '*[Si](C)(C)OI'
-DP = '*[Si](c1ccccc1)(c1ccccc1)OI'
-PM = '*[Si](c1ccccc1)(C)OI'
-left_end = 'C[Si](C)(C)O*'
-right_end = '*[Si](C)(C)C'
+sbma_mw_unit = 280.41
+pdms_mw_unit = 92.12
+st.write('Percentaje:',choice)
 
-def generate_si_oil_pattern(choice, percent, degree_of_polymerization, num_1=1, name_left_end='3MSi0', name_right_end='-Si3M', DM='DM', DP='DP', PM='PM'):
-    # Calculate Number_Rep_Unit_2
+
+def generate_si_oil_pattern(choice, percent, sbma_mw, pdms_mw, DM='DM', DP='DP', PM='PM'):
+    # Calculate Number_Rep_Unit_1
     st.write('percent:',percent)
     Number_Rep_Unit_2 = round(percent / 100 * degree_of_polymerization)
+
+    
 
     # Perform the division and get the integer quotient and remainder
     Number_Rep_Unit_1 = degree_of_polymerization - Number_Rep_Unit_2 - 2  # Assuming a value for DiMethyl for the code to run
