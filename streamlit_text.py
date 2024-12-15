@@ -71,7 +71,7 @@ def img_to_bytes(img_path):
     encoded = base64.b64encode(img_bytes).decode()
     return encoded
 
-image = Image.open('cropped_header.png')
+image = Image.open('cropped_head.png')
 st.image(image)
 
 # Create a layout with 3 columns
