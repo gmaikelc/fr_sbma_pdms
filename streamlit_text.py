@@ -30,6 +30,8 @@ from sklearn.model_selection import cross_val_predict
 from sklearn.linear_model import LinearRegression
 from sklearn import preprocessing
 from sklearn.metrics import mean_squared_error
+from sklearn.ensemble import RandomForestRegressor
+
 
 # packages for streamlit
 import streamlit as st
