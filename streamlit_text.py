@@ -86,7 +86,7 @@ if sbma_mw < 280.41 or sbma_mw > 6000.0:
     st.error("SBMA molecular weight must be between 280.41 and 6000.0.")
 
 # Input for 'Percent'
-pdms_mw = col2.number_input('PDMS molecular weight',max_values=11000.0,value = None)
+pdms_mw = col2.number_input('PDMS molecular weight',max_value=11000.0,value = None)
 if pdms_mw < 92.12 or pdms_mw > 11000.0:
     st.error("PDMS molecular weight must be between 92.12 and 11000.0.")
 
