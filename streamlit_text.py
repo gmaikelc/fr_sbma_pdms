@@ -98,7 +98,8 @@ fraction_pdms = pdms_mw/pdms_mw_unit
 st.write('fraction sbma:', fraction_sbma)
 st.write('fraction pdms:', fraction_pdms)
 
-data_desc_sbma_pdms = pd.read_csv("data/" + "data_126c_15var_pLC50_train_sw.csv")
+data_desc_sbma_pdms = pd.read_csv("data/" + "descriptors_sbma_pdms..csv")
+
 #data_train = pd.read_csv("data/" + "data_126c_15var_pLC50_train_sw.csv")
 #mean_value = data_train['pLC50_sw'].mean()
 #loaded_model = pickle.load(open("models/" + "ml_model_rotifer_sw.pickle", 'rb'))
