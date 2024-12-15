@@ -84,7 +84,7 @@ sbma_mw = col1.number_input('SBMA molecular weight', min_value=0, max_value = 10
 pdms_mw = col2.number_input('PDMS molecular weight', min_value=0, max_value = 1500)
 
 # Dropdown for 'PM' and 'DP'
-options = ['PM', 'DP']
+options = ['0.2%', '1%','5%']
 choice = col3.selectbox('Choose an option', options)
 
 st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pdms_mw} for PDMS molecular weight, and selected {choice} from the dropdown.")
