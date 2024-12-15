@@ -310,13 +310,33 @@ mean_value_clyt10psi = data_train_clyt10psi['c_lytica_removal_at_10psi'].mean()
 loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
 loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
 
+train_data = data_train[loaded_desc]
+#Selecting the descriptors based on model for first component
+#test_data1, id_list_1 =  reading_reorder(descriptors_total_1)
+#Selecting the descriptors based on model for first component
+#test_data2, id_list_1 =  reading_reorder(descriptors_total_2m)
+
+
+ #Calculating mixture descriptors    
+#test_data_mix= mixture_descriptors(test_data1,test_data2)
+#test_data_mix.fillna(0,inplace=True)
+#st.markdown(filedownload4(test_data_mix), unsafe_allow_html=True)
+                
+#X_final1, id = all_correct_model(test_data_mix,loaded_desc, id_list)
+#X_final2= test_data_mix
+#df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)
+#st.markdown(filedownload5(df_test_normalized), unsafe_allow_html=True)
+#final_file, styled_df = predictions(loaded_model, loaded_desc, df_test_normalized)
+#figure  = final_plot(final_file)  
+#col1, col2 = st.columns(2)
+
 
 #Data C. lytica at 20 psi
-data_clyt20psi = pd.read_csv("data/" + "dataset_clytica10psi_norm_ascending_Series_p1.csv")
-data_train_clyt20psi = data_clyt20psi[data_clyt20psi['Series_p1'] == 'Training'] 
-mean_value_clyt20psi = data_train_clyt10psi['c_lytica_removal_at_10psi'].mean()
-loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
-loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
+#data_clyt20psi = pd.read_csv("data/" + "dataset_clytica10psi_norm_ascending_Series_p1.csv")
+#data_train_clyt20psi = data_clyt20psi[data_clyt20psi['Series_p1'] == 'Training'] 
+#mean_value_clyt20psi = data_train_clyt10psi['c_lytica_removal_at_10psi'].mean()
+#loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
+#loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
 
 #data_train = pd.read_csv("data/" + "data_126c_15var_pLC50_train_sw.csv")
 #mean_value = data_train['pLC50_sw'].mean()
