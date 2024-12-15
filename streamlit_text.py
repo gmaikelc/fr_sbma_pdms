@@ -106,7 +106,7 @@ descriptors_sbma_pdms = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
 data_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_norm_ascending_Series_p1.csv")
 data_train_clyt10psi = data_clyt10psi[data_clyt10psi['Series_p1'] == 'Training'] 
 mean_value_clyt10psi = data_train_clyt10psi['c_lytica_removal_at_10psi'].mean()
-#loaded_model = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
+loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
 loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
 
  # Checkbox options for models
