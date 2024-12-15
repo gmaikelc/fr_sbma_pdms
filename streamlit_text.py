@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri July 19 17:41:37 2024
+Created on Fri December 13 14:41:37 2024
 
 @author: Gerardo Casanola
 """
@@ -46,8 +46,7 @@ from rdkit.Chem.Fingerprints import FingerprintMols
 from rdkit.DataStructs import cDataStructs
 from io import StringIO
 #from mordred import Calculator, descriptors
-import numpy as np
-import pandas as pd
+
 import seaborn as sns
 import sys, os, shutil
 import matplotlib.pyplot as plt
