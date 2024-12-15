@@ -78,10 +78,10 @@ st.image(image)
 col1, col2, col3 = st.columns(3)
 
 # Input for 'SBMA molecular weight'
-sbma_mw = col1.number_input('SBMA molecular weight', min_value=0, max_value = 1000)
+sbma_mw = col1.number_input('SBMA molecular weight', min_value=0, max_value = 6000)
 
 # Input for 'Percent'
-pdms_mw = col2.number_input('PDMS molecular weight', min_value=0, max_value = 1500)
+pdms_mw = col2.number_input('PDMS molecular weight', min_value=0, max_value = 11000)
 
 # Dropdown for 'PM' and 'DP'
 options = ['0.2%', '1%','5%']
