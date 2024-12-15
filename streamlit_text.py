@@ -110,8 +110,8 @@ mean_value_clyt10psi = data_train_clyt10psi['c_lytica_removal_at_10psi'].mean()
 loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
 
  # Checkbox options for models
-    st.sidebar.title("Select Models for Prediction")
-    model_options = {
+st.sidebar.title("Select Models for Prediction")
+model_options = {
         "Model 1": "model1.pkl",
         "Model 2": "model2.pkl",
         "Model 3": "model3.pkl",
