@@ -77,17 +77,17 @@ st.image(image)
 # Create a layout with 3 columns
 col1, col2, col3 = st.columns(3)
 
-# Input for 'Degree of polymerization'
-degree_of_polymerization = col1.number_input('Degree of polymerization', min_value=0)
+# Input for 'SBMA molecular weight'
+sbma_mw = col1.number_input('SBMA molecular weight', min_value=0, max_value = 1000)
 
 # Input for 'Percent'
-percent = col2.number_input('Percent', min_value=0, max_value=100)
+pdms_mw = col2.number_input('PDMS molecular weight', min_value=0, max_value = 1500)
 
 # Dropdown for 'PM' and 'DP'
 options = ['PM', 'DP']
 choice = col3.selectbox('Choose an option', options)
 
-st.write(f"You entered {degree_of_polymerization} for Degree of polymerization, {percent}% for Percent, and selected {choice} from the dropdown.")
+st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pmds_mw} for PDMS molecular weight, and selected {choice} from the dropdown.")
 
 # Define the strings
 DM = '*[Si](C)(C)OI'
