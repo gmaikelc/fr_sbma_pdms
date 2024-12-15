@@ -43,7 +43,7 @@ from rdkit.Chem.MolStandardize import rdMolStandardize
 from rdkit.Chem.Fingerprints import FingerprintMols
 from rdkit.DataStructs import cDataStructs
 from io import StringIO
-from mordred import Calculator, descriptors
+#from mordred import Calculator, descriptors
 import numpy as np
 import pandas as pd
 import seaborn as sns
