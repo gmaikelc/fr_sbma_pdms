@@ -91,10 +91,15 @@ st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pdms_mw} for PDMS m
 
 sbma_mw_unit = 280.41
 pdms_mw_unit = 92.12
-st.write('Percentaje:',choice)
+
+fraction_sbma = sbma_mw/sbma_mw_unit
+fraction_pdms = pdms_mw/pdms_mw_unit
+
+st.write('fraction sbma:', fraction_sbma)
+st.write('fraction pdms:', fraction_pdms)
 
 
-def generate_si_oil_pattern(choice, percent, sbma_mw, pdms_mw, DM='DM', DP='DP', PM='PM'):
+def generate_si_oil_pattern(choice, sbma_mw, pdms_mw, DM='DM', DP='DP', PM='PM'):
     # Calculate Number_Rep_Unit_1
     st.write('percent:',percent)
     Number_Rep_Unit_2 = round(percent / 100 * degree_of_polymerization)
