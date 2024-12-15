@@ -310,7 +310,7 @@ mean_value_clyt10psi = data_train_clyt10psi['c_lytica_removal_at_10psi'].mean()
 loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
 loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
 
-train_data = data_train[loaded_desc]
+train_data = data_train_clyt10psi[loaded_desc]
 #Selecting the descriptors based on model for first component
 #test_data1, id_list_1 =  reading_reorder(descriptors_total_1)
 #Selecting the descriptors based on model for first component
