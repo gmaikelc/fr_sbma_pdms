@@ -78,12 +78,13 @@ st.image(image)
 
 # Create a layout with 3 columns
 col1, col2, col3 = st.columns(3)
+col4, col5, col6 = st.columns(3)
 
 # Input for 'SBMA molecular weight'
 sbma_mw = col1.number_input('SBMA molecular weight',max_value=6000.0)
 
 if sbma_mw < 280.41 or sbma_mw > 6000.0:
-    st.error("SBMA molecular weight must be between 280.41 and 6000.0.")
+    col4.st.error("SBMA molecular weight must be between 280.41 and 6000.0.")
 
 # Input for 'Percent'
 pdms_mw = col2.number_input('PDMS molecular weight',max_value=11000.0)
