@@ -87,7 +87,7 @@ pdms_mw = col2.number_input('PDMS molecular weight', min_value=0, max_value = 15
 options = ['PM', 'DP']
 choice = col3.selectbox('Choose an option', options)
 
-st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pmds_mw} for PDMS molecular weight, and selected {choice} from the dropdown.")
+st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pdms_mw} for PDMS molecular weight, and selected {choice} from the dropdown.")
 
 # Define the strings
 DM = '*[Si](C)(C)OI'
