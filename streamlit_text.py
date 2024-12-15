@@ -50,7 +50,7 @@ import seaborn as sns
 import sys, os, shutil
 import matplotlib.pyplot as plt
 import streamlit as st
-from streamlit_ketcher import st_ketcher
+#from streamlit_ketcher import st_ketcher
 import time
 import subprocess
 from PIL import Image
