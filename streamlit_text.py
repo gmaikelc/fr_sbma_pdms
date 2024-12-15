@@ -80,7 +80,7 @@ st.image(image)
 col1, col2, col3 = st.columns(3)
 
 # Input for 'SBMA molecular weight'
-sbma_mw = col1.number_input('SBMA molecular weight',max_value=6000.0,value= 0.0)
+sbma_mw = col1.number_input('SBMA molecular weight',max_value=6000.0,value='None')
 
 #if sbma_mw < 280.41 or sbma_mw > 6000.0:
  #   st.error("SBMA molecular weight must be between 280.41 and 6000.0.")
