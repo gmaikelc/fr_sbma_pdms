@@ -313,15 +313,16 @@ loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'r
 train_data = data_train_clyt10psi[loaded_desc]
 #Selecting the descriptors based on model for first component
 descriptors_sbma = descriptors_sbma_pdms.iloc[0]
-test_data1, id_list_1 =  reading_reorder(descriptors_sbma,loaded_desc)
+st.dataframe(descriptors_sbma)
+#test_data1, id_list_1 =  reading_reorder(descriptors_sbma,loaded_desc)
 #Selecting the descriptors based on model for first component
 #test_data2, id_list_2 =  reading_reorder(descriptors_sbma_pdms.iloc[1],loaded_desc)
 
 # Display the dataframe in Streamlit
-st.dataframe(test_data1)
+#st.dataframe(test_data1)
 
  #Calculating mixture descriptors    
-test_data_mix= mixture_descriptors(test_data1,test_data2)
+#test_data_mix= mixture_descriptors(test_data1,test_data2)
 #test_data_mix.fillna(0,inplace=True)
 #st.markdown(filedownload4(test_data_mix), unsafe_allow_html=True)
                 
