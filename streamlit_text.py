@@ -312,9 +312,9 @@ loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'r
 
 train_data = data_train_clyt10psi[loaded_desc]
 #Selecting the descriptors based on model for first component
-test_data1, id_list_1 =  reading_reorder(descriptors_sbma_pdms.iloc[0])
+test_data1, id_list_1 =  reading_reorder(descriptors_sbma_pdms,loaded_desc)
 #Selecting the descriptors based on model for first component
-test_data2, id_list_2 =  reading_reorder(descriptors_sbma_pdms.iloc[1])
+#test_data2, id_list_2 =  reading_reorder(descriptors_sbma_pdms.iloc[1],loaded_desc)
 
 # Display the dataframe in Streamlit
 st.dataframe(test_data1)
