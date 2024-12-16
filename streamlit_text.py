@@ -135,9 +135,11 @@ def mixture_descriptors(data1, data2):
     component2 = fraction_pdms #data['Component2']
 
     # Multiply corresponding rows in data1 and data2 for all columns
-    df_mixture_left = component1.values[:, None] * test_data1.values
-    df_mixture_right = component2.values[:, None] * test_data2.values
+    df_mixture_left = component1* test_data1
+    df_mixture_right = component2* test_data2
 
+    st.dataframe(df_mixture_left)
+    
     # Create a new DataFrame using the result and set column names from data1 and data2
     df_mixture_left = pd.DataFrame(df_mixture_left, columns=test_data.columns)
     df_mixture_right = pd.DataFrame(df_mixture_right, columns=test_data.columns)
