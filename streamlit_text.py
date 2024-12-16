@@ -520,7 +520,7 @@ if run == True:
         col1, col2 = st.columns(2)
 
         with col1:
-            st.header(f"Fouling Release SBMA PDMS system at {percent}%")
+            st.header(f"Fouling Release SBMA PDMS system at {percentage}%")
             st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
             st.subheader(r'Predictions')
             st.write(styled_df)
