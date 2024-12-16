@@ -141,8 +141,8 @@ def mixture_descriptors(data1, data2):
     st.dataframe(df_mixture_left)
     st.write(df_mixture_right)
 
-    df_mixture_left = df_mixture_left.reset_index()
-    df_mixture_right = df_mixture_right.reset_index()
+    df_mixture_left = df_mixture_left.reset_index(drop=True)
+    df_mixture_right = df_mixture_right.reset_index(drop=True)
     
     # Create a new DataFrame using the result and set column names from data1 and data2
     #df_mixture_left = pd.DataFrame(df_mixture_left, index=test_data1.index)
