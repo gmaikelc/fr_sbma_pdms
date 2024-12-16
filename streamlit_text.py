@@ -210,7 +210,7 @@ def applicability_domain(x_test_normalized, x_train_normalized):
         min_samples_split=2,    # Minimum samples required to split an internal node
         random_state=42         # For reproducibility
     )
-     = LinearRegression()
+    
     lr.fit(df_train_normalized, y_train)
     y_pred_train = lr.predict(df_train_normalized)
     
