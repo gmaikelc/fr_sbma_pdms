@@ -450,53 +450,57 @@ def williams_plot(leverage_train, leverage_test, std_residual_train, std_residua
 
     return fig
 
+run = st.button("Click to make prediction for the drawn structure")
+    if run == True
 
+        ID='1'
+        data = pd.DataFrame({'ID': [ID],})
 
-#Data C. lytica at 10 psi
-#data_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
-#data_train_clyt10psi = data_clyt10psi[data_clyt10psi['Series_p1'] == 'Training'] 
-data_train_1 = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
-mean_value_1 = data_train_1['c_lytica_removal_at_10psi'].mean()
-loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
-loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
+        #Data C. lytica at 10 psi
+        #data_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
+        #data_train_clyt10psi = data_clyt10psi[data_clyt10psi['Series_p1'] == 'Training'] 
+        data_train_1 = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
+        mean_value_1 = data_train_1['c_lytica_removal_at_10psi'].mean()
+        loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
+        loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
 
-train_data = data_train_1[loaded_desc]
-#Selecting the descriptors based on model for first component
-#st.dataframe(descriptors_sbma_pdms)
-descriptors_sbma = descriptors_sbma_pdms.iloc[0:1,:]
-descriptors_pdms = descriptors_sbma_pdms.iloc[1:2,:]
-#st.dataframe(descriptors_sbma)
-test_data1, id_list_1 =  reading_reorder(descriptors_sbma,loaded_desc)
-#Selecting the descriptors based on model for first component
-test_data2, id_list_2 =  reading_reorder(descriptors_pdms,loaded_desc)
+        train_data = data_train_1[loaded_desc]
+        #Selecting the descriptors based on model for first component
+        #st.dataframe(descriptors_sbma_pdms)
+        descriptors_sbma = descriptors_sbma_pdms.iloc[0:1,:]
+        descriptors_pdms = descriptors_sbma_pdms.iloc[1:2,:]
+        #st.dataframe(descriptors_sbma)
+        test_data1, id_list_1 =  reading_reorder(descriptors_sbma,loaded_desc)
+        #Selecting the descriptors based on model for first component
+        test_data2, id_list_2 =  reading_reorder(descriptors_pdms,loaded_desc)
 
-# Display the dataframe in Streamlit
-#st.dataframe(test_data1)
-#st.dataframe(test_data2)
+        # Display the dataframe in Streamlit
+        #st.dataframe(test_data1)
+        #st.dataframe(test_data2)
 
- #Calculating mixture descriptors    
-test_data_mix= mixture_descriptors(test_data1,test_data2)
-#st.dataframe(test_data_mix)
-#test_data_mix.fillna(0,inplace=True)
-#st.markdown(filedownload4(test_data_mix), unsafe_allow_html=True)
+         #Calculating mixture descriptors    
+        test_data_mix= mixture_descriptors(test_data1,test_data2)
+        #st.dataframe(test_data_mix)
+        #test_data_mix.fillna(0,inplace=True)
+        #st.markdown(filedownload4(test_data_mix), unsafe_allow_html=True)
 
-X_final2= test_data_mix
-df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)               
+        X_final2= test_data_mix
+        df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)               
 
-#X_final1, id = all_correct_model(test_data_mix,loaded_desc, id_list)
+        #X_final1, id = all_correct_model(test_data_mix,loaded_desc, id_list)
 
-st.dataframe(data_train_1.head(5))
+        st.dataframe(data_train_1.head(5))
 
-st.dataframe(data.head(5))
+        #st.dataframe(data.head(5))
 
-#final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test= predictions(loaded_model, loaded_desc, df_test_normalized)
-#final_file2, styled_df2,leverage_train2,std_residual_train2, leverage_test2, std_residual_test2= predictions2(loaded_model2, loaded_desc2, df_test_normalized2)
+        final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test= predictions(loaded_model, loaded_desc, df_test_normalized)
+        #final_file2, styled_df2,leverage_train2,std_residual_train2, leverage_test2, std_residual_test2= predictions2(loaded_model2, loaded_desc2, df_test_normalized2)
         
-#x_lim_max_std, x_lim_min_std, h_critical, x_lim_max_lev, x_lim_min_lev = calculate_wp_plot_limits(leverage_train,std_residual_train, x_std_max=4, x_std_min=-4)
-#x_lim_max_std2, x_lim_min_std2, h_critical2, x_lim_max_lev2, x_lim_min_lev2 = calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max2=4, x_std_min2=-4)
+        x_lim_max_std, x_lim_min_std, h_critical, x_lim_max_lev, x_lim_min_lev = calculate_wp_plot_limits(leverage_train,std_residual_train, x_std_max=4, x_std_min=-4)
+        #x_lim_max_std2, x_lim_min_std2, h_critical2, x_lim_max_lev2, x_lim_min_lev2 = calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max2=4, x_std_min2=-4)
         
-#figure  = williams_plot(leverage_train, leverage_test, std_residual_train, std_residual_test,id_list_1)
-#figure2  = williams_plot2(leverage_train2, leverage_test2, std_residual_train2, std_residual_test2,id_list_2)
+        figure  = williams_plot(leverage_train, leverage_test, std_residual_train, std_residual_test,id_list_1)
+        #figure2  = williams_plot2(leverage_train2, leverage_test2, std_residual_train2, std_residual_test2,id_list_2)
 
 
 #st.markdown(filedownload5(df_test_normalized), unsafe_allow_html=True)
