@@ -489,7 +489,7 @@ if run == True
 
         #X_final1, id = all_correct_model(test_data_mix,loaded_desc, id_list)
 
-        st.dataframe(data_train_1.head(5))
+        #st.dataframe(data_train_1.head(5))
 
         #st.dataframe(data.head(5))
 
