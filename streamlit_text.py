@@ -266,7 +266,8 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
     with st.spinner('CALCULATING PREDICTIONS (STEP 2 OF 3)...'):
         # Simulate a long-running computation
         time.sleep(1)  # Sleep for 5 seconds to mimic computation
-
+        
+        y_train=data_train_1['c_lytica_removal_at_10psi']
         X = df_test_normalized
         #X = df_test_normalized[descriptors_model]
         loaded_model.fit(df_train_normalized,y_train)
