@@ -184,7 +184,7 @@ def normalize_data(train_data, test_data):
 
 
 def applicability_domain(x_test_normalized, x_train_normalized):
-    y_train=data_train['pLC50_sw']
+    y_train=data_train_1['pLC50_sw']
     X_train = x_train_normalized.values
     X_test = x_test_normalized.values
     # Calculate leverage and standard deviation for the training set
@@ -321,12 +321,12 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
 #Data C. lytica at 10 psi
 #data_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
 #data_train_clyt10psi = data_clyt10psi[data_clyt10psi['Series_p1'] == 'Training'] 
-data_train_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
-mean_value_clyt10psi = data_train_clyt10psi['c_lytica_removal_at_10psi'].mean()
+data_train_1 = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
+mean_value_1 = data_train_1['c_lytica_removal_at_10psi'].mean()
 loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
 loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
 
-train_data = data_train_clyt10psi[loaded_desc]
+train_data = data_train_1[loaded_desc]
 #Selecting the descriptors based on model for first component
 #st.dataframe(descriptors_sbma_pdms)
 descriptors_sbma = descriptors_sbma_pdms.iloc[0:1,:]
@@ -351,7 +351,7 @@ df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)
 
 #X_final1, id = all_correct_model(test_data_mix,loaded_desc, id_list)
 
-st.dataframe(data_train.head(5))
+st.dataframe(data_train_1.head(5))
 
 
 
