@@ -94,6 +94,9 @@ if pdms_mw < 92.12 or pdms_mw > 11000.0:
 options = ['0.2%', '1%','5%']
 choice = col3.selectbox('Additive percent to add to the coating', options)
 
+# Convert the selected percentage to a float
+percentage = float(choice.strip('%'))
+
 st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pdms_mw} for PDMS molecular weight, and selected {choice} as percent to be added.")
 
 sbma_mw_unit = 280.41
@@ -144,24 +147,17 @@ def mixture_descriptors(data1, data2):
     df_mixture_left = df_mixture_left.reset_index(drop=True)
     df_mixture_right = df_mixture_right.reset_index(drop=True)
     
-    # Create a new DataFrame using the result and set column names from data1 and data2
-    #df_mixture_left = pd.DataFrame(df_mixture_left, index=test_data1.index)
-    #df_mixture_right = pd.DataFrame(df_mixture_right, index=test_data1.index)
-
-    st.dataframe(df_mixture_left)
-    st.write(df_mixture_right)
-       
-
-    # Initialize DataFrame for the final result
-    #df_sum_mixture = pd.DataFrame(index=test_data1.index)
     # Sum the DataFrames row-wise by column name
-    df_sum_mixture = df_mixture_left.add(df_mixture_right)
-    # Set the index of df1 to match the index of df2
-    df_sum_mixture = df_sum_mixture.iloc[:,0:]
+    df_sum_mixture_ini = df_mixture_left.add(df_mixture_right)
+    # Remove the column index from the dataframe 
+    df_sum_mixture_ini = df_sum_mixture_ini.iloc[:,0:]
     st.write('dataframe mixture descriptors')
-    st.dataframe(df_sum_mixture)
+    st.dataframe(df_sum_mixture_ini)
     st.write(choice)
-    #df_sum_mixture = df_sum_mixture*choice
+    # Multiply the DataFrame by the selected percentage
+    df_sum_mixture = df_sum_mixture_ini * percentage
+    st.write(\n'dataframe  by percent added')
+    st.dataframe(df_sum_mixture)
 
     return df_sum_mixture
 
