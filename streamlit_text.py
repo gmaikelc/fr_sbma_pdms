@@ -157,7 +157,7 @@ def mixture_descriptors(data1, data2):
     # Sum the DataFrames row-wise by column name
     df_sum_mixture = df_mixture_left.add(df_mixture_right)
     # Set the index of df1 to match the index of df2
-    #df_sum_mixture.set_index(test_data1.index, inplace=True)
+    df_sum_mixture = df_sum_mixture.iloc[:,1:]
     st.write('dataframe mixture descriptors')
     st.dataframe(df_sum_mixture)
 
@@ -333,18 +333,23 @@ test_data1, id_list_1 =  reading_reorder(descriptors_sbma,loaded_desc)
 test_data2, id_list_2 =  reading_reorder(descriptors_pdms,loaded_desc)
 
 # Display the dataframe in Streamlit
-st.dataframe(test_data1)
-st.dataframe(test_data2)
+#st.dataframe(test_data1)
+#st.dataframe(test_data2)
 
  #Calculating mixture descriptors    
 test_data_mix= mixture_descriptors(test_data1,test_data2)
 #st.dataframe(test_data_mix)
 #test_data_mix.fillna(0,inplace=True)
 #st.markdown(filedownload4(test_data_mix), unsafe_allow_html=True)
-                
+
+X_final2= test_data_mix
+df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)               
+
 #X_final1, id = all_correct_model(test_data_mix,loaded_desc, id_list)
-#X_final2= test_data_mix
-#df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)
+
+
+
+
 #st.markdown(filedownload5(df_test_normalized), unsafe_allow_html=True)
 #final_file, styled_df = predictions(loaded_model, loaded_desc, df_test_normalized)
 #figure  = final_plot(final_file)  
