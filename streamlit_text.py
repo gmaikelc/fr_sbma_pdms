@@ -304,7 +304,7 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
 
         dataframe_pred = pd.DataFrame(scores).T
         dataframe_pred.index = idx
-        dataframe_pred.rename(columns={0: "pLC50"},inplace=True)
+        dataframe_pred.rename(columns={0: "C. lytica percent removal at 10 psi"},inplace=True)
     
         dataframe_std = pd.DataFrame(std_resd).T
         dataframe_std.index = idx
@@ -526,8 +526,8 @@ if run == True:
             st.write(styled_df)
             #st.markdown("<h2 style='text-align: center; font-size: 30px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
             #st.plotly_chart(figure,use_container_width=True)
-            st.markdown(":point_down: **Here you can download the results for Salt Water model**", unsafe_allow_html=True,)
-            st.markdown(filedownload1(final_file), unsafe_allow_html=True)
+            #st.markdown(":point_down: **Here you can download the results for Salt Water model**", unsafe_allow_html=True,)
+            #st.markdown(filedownload1(final_file), unsafe_allow_html=True)
         with col2:
             #st.header("Fresh Water")
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
