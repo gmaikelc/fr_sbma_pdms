@@ -125,11 +125,11 @@ def reading_reorder(data, loaded_desc):
 
 def mixture_descriptors(data1, data2):
     # Extract component fractions
-    sbma_mw_unit = 280.41
-    pdms_mw_unit = 92.12
+    #sbma_mw_unit = 280.41
+    #pdms_mw_unit = 92.12
 
-    fraction_sbma = sbma_mw/sbma_mw_unit
-    fraction_pdms = pdms_mw/pdms_mw_unit
+    #fraction_sbma = sbma_mw/sbma_mw_unit
+    #fraction_pdms = pdms_mw/pdms_mw_unit
     
     component1 = fraction_sbma  #data['Component1']
     component2 = fraction_pdms #data['Component2']
@@ -139,21 +139,15 @@ def mixture_descriptors(data1, data2):
     df_mixture_right = component2.values[:, None] * test_data2.values
 
     # Create a new DataFrame using the result and set column names from data1 and data2
-    df_mixture_left = pd.DataFrame(df_mixture_left, columns=test_data1.columns)
-    df_mixture_right = pd.DataFrame(df_mixture_right, columns=test_data2.columns)
+    df_mixture_left = pd.DataFrame(df_mixture_left, columns=test_data.columns)
+    df_mixture_right = pd.DataFrame(df_mixture_right, columns=test_data.columns)
 
     # Initialize DataFrame for the final result
     df_sum_mixture = pd.DataFrame(index=test_data1.index)
-
-    # Check if Component2 is 0, if so, only use the result from df_mixture_left
-    for value in data['Component2']:
-        if value == 0:
-            df_sum_mixture = df_mixture_left
-        else:
-            # Sum the DataFrames row-wise by column name
-            df_sum_mixture = df_mixture_left.add(df_mixture_right)
-            # Set the index of df1 to match the index of df2
-            df_sum_mixture.set_index(test_data1.index, inplace=True)
+    # Sum the DataFrames row-wise by column name
+    df_sum_mixture = df_mixture_left.add(df_mixture_right)
+    # Set the index of df1 to match the index of df2
+    df_sum_mixture.set_index(test_data1.index, inplace=True)
 
     return df_sum_mixture
 
@@ -318,15 +312,15 @@ loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'r
 
 train_data = data_train_clyt10psi[loaded_desc]
 #Selecting the descriptors based on model for first component
-test_data1, id_list_1 =  reading_reorder(descriptors_sbma_pdms,loaded_desc)
+test_data1, id_list_1 =  reading_reorder(descriptors_sbma_pdms.iloc[0],loaded_desc)
 #Selecting the descriptors based on model for first component
-#test_data2, id_list_2 =  reading_reorder(descriptors_sbma_pdms.iloc[1],loaded_desc)
+test_data2, id_list_2 =  reading_reorder(descriptors_sbma_pdms.iloc[1],loaded_desc)
 
 # Display the dataframe in Streamlit
 st.dataframe(test_data1)
 
  #Calculating mixture descriptors    
-#test_data_mix= mixture_descriptors(test_data1,test_data2)
+test_data_mix= mixture_descriptors(test_data1,test_data2)
 #test_data_mix.fillna(0,inplace=True)
 #st.markdown(filedownload4(test_data_mix), unsafe_allow_html=True)
                 
