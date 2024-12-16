@@ -314,13 +314,15 @@ train_data = data_train_clyt10psi[loaded_desc]
 #Selecting the descriptors based on model for first component
 #st.dataframe(descriptors_sbma_pdms)
 descriptors_sbma = descriptors_sbma_pdms.iloc[0:1,:]
-st.dataframe(descriptors_sbma)
-#test_data1, id_list_1 =  reading_reorder(descriptors_sbma,loaded_desc)
+descriptors_pdms = descriptors_sbma_pdms.iloc[1:2,:]
+#st.dataframe(descriptors_sbma)
+test_data1, id_list_1 =  reading_reorder(descriptors_sbma,loaded_desc)
 #Selecting the descriptors based on model for first component
-#test_data2, id_list_2 =  reading_reorder(descriptors_sbma_pdms.iloc[1],loaded_desc)
+test_data2, id_list_2 =  reading_reorder(descriptors_pdms,loaded_desc)
 
 # Display the dataframe in Streamlit
-#st.dataframe(test_data1)
+st.dataframe(test_data1)
+st.dataframe(test_data2)
 
  #Calculating mixture descriptors    
 #test_data_mix= mixture_descriptors(test_data1,test_data2)
