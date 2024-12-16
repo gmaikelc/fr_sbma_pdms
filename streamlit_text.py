@@ -156,7 +156,7 @@ def mixture_descriptors(data1, data2):
     st.write(choice)
     # Multiply the DataFrame by the selected percentage
     df_sum_mixture = df_sum_mixture_ini * percentage
-    st.write(\n'dataframe  by percent added')
+    st.write('dataframe  by percent added')
     st.dataframe(df_sum_mixture)
 
     return df_sum_mixture
