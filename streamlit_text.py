@@ -489,7 +489,9 @@ if run == True:
         #X_final1, id = all_correct_model(test_data_mix,loaded_desc, id_list)
 
         #st.dataframe(data_train_1.head(5))
-
+    
+        st.write(loaded_desc)
+    
         st.write(loaded_model)
 
         #final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test= predictions(loaded_model, loaded_desc, df_test_normalized)
