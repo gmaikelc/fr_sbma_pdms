@@ -178,7 +178,7 @@ def normalize_data(train_data, test_data):
     st.dataframe(df_test_normalized)
 
     st.write('Train normalized')
-    st.dataframe(df_train_normalized.head(5)
+    st.dataframe(df_train_normalized.head(5))
                  
     return df_train_normalized, df_test_normalized
 
