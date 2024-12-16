@@ -230,7 +230,7 @@ def applicability_domain(df_test_normalized, df_train_normalized):
     
     # threshold for the applicability domain
     
-    h3 = 3*((x_train_normalized.shape[1]+1)/x_train_normalized.shape[0])  
+    h3 = 3*((df_train_normalized.shape[1]+1)/df_train_normalized.shape[0])  
     
     diagonal_compare = list(leverage_test)
     h_results =[]
