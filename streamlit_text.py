@@ -303,18 +303,21 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
         return final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test
 
 #Data C. lytica at 10 psi
-data_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_norm_ascending_Series_p1.csv")
-data_train_clyt10psi = data_clyt10psi[data_clyt10psi['Series_p1'] == 'Training'] 
+#data_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
+#data_train_clyt10psi = data_clyt10psi[data_clyt10psi['Series_p1'] == 'Training'] 
+data_train_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
 mean_value_clyt10psi = data_train_clyt10psi['c_lytica_removal_at_10psi'].mean()
 loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
 loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
 
 train_data = data_train_clyt10psi[loaded_desc]
 #Selecting the descriptors based on model for first component
-#test_data1, id_list_1 =  reading_reorder(descriptors_total_1)
+test_data1, id_list_1 =  reading_reorder(descriptors_sbma_pdms .iloc[0])
 #Selecting the descriptors based on model for first component
-#test_data2, id_list_1 =  reading_reorder(descriptors_total_2m)
+test_data2, id_list_2 =  reading_reorder(descriptors_sbma_pdms .iloc[1])
 
+# Display the dataframe in Streamlit
+st.dataframe(test_data1)
 
  #Calculating mixture descriptors    
 #test_data_mix= mixture_descriptors(test_data1,test_data2)
