@@ -142,11 +142,11 @@ def mixture_descriptors(data1, data2):
     st.write(df_mixture_right)
     
     # Create a new DataFrame using the result and set column names from data1 and data2
-    #df_mixture_left = pd.DataFrame(df_mixture_left, columns=test_data.columns)
-    #df_mixture_right = pd.DataFrame(df_mixture_right, columns=test_data.columns)
+    df_mixture_left = pd.DataFrame(df_mixture_left, index=test_data1.index)
+    df_mixture_right = pd.DataFrame(df_mixture_right, index=test_data1.index)
 
     # Initialize DataFrame for the final result
-    df_sum_mixture = pd.DataFrame(index=df_mixture_left.index)
+    #df_sum_mixture = pd.DataFrame(index=test_data1.index)
     # Sum the DataFrames row-wise by column name
     df_sum_mixture = df_mixture_left.add(df_mixture_right)
     # Set the index of df1 to match the index of df2
