@@ -325,7 +325,8 @@ st.dataframe(test_data1)
 st.dataframe(test_data2)
 
  #Calculating mixture descriptors    
-#test_data_mix= mixture_descriptors(test_data1,test_data2)
+test_data_mix= mixture_descriptors(test_data1,test_data2)
+st.dataframe(test_data_mix)
 #test_data_mix.fillna(0,inplace=True)
 #st.markdown(filedownload4(test_data_mix), unsafe_allow_html=True)
                 
