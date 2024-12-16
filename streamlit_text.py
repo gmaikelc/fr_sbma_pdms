@@ -187,13 +187,24 @@ def applicability_domain(df_test_normalized, df_train_normalized):
     y_train=data_train_1['c_lytica_removal_at_10psi']
     X_train = df_train_normalized.values
     X_test = df_test_normalized.values
+
+    # Add a small value to the diagonal
+    epsilon = 1e-10
+    XTX = X_train.T @ X_train
+    XTX += np.eye(XTX.shape[0]) * epsilon
+
+    # Compute the hat matrix
+    hat_matrix_train = X_train @ np.linalg.inv(XTX) @ X_train.T
+
     # Calculate leverage and standard deviation for the training set
-    hat_matrix_train = X_train @ np.linalg.inv(X_train.T @ X_train) @ X_train.T
+    #hat_matrix_train = X_train @ np.linalg.inv(X_train.T @ X_train) @ X_train.T
+    
     leverage_train = np.diagonal(hat_matrix_train)
     leverage_train=leverage_train.ravel()
     
     # Calculate leverage and standard deviation for the test set
-    hat_matrix_test = X_test @ np.linalg.inv(X_train.T @ X_train) @ X_test.T
+    hat_matrix_test = X_test @ np.linalg.inv(XTX) @ X_test.T
+    #hat_matrix_test = X_test @ np.linalg.inv(X_train.T @ X_train) @ X_test.T
     leverage_test = np.diagonal(hat_matrix_test)
     leverage_test=leverage_test.ravel()
 
