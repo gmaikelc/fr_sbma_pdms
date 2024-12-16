@@ -112,7 +112,7 @@ def reading_reorder(data, loaded_desc):
     #Select the specified columns from the DataFrame
     df_selected = data[loaded_desc]
     df_id = data.reset_index()
-    df_id.rename(columns={'index': 'NAME'}, inplace=True)
+    df_id.rename(columns={'MolID': 'NAME'}, inplace=True)
     id = df_id['NAME'] 
     # Order the DataFrame by the specified list of columns
     test_data = df_selected.reindex(columns=loaded_desc)
