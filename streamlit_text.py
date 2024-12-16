@@ -351,6 +351,7 @@ df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)
 
 #X_final1, id = all_correct_model(test_data_mix,loaded_desc, id_list)
 
+st.dataframe(data_train.head(5))
 
 
 
