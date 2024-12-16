@@ -184,7 +184,7 @@ def normalize_data(train_data, test_data):
 
 
 def applicability_domain(x_test_normalized, x_train_normalized):
-    y_train=data_train_1['pLC50_sw']
+    y_train=data_train_1['c_lytica_removal_at_10psi']
     X_train = x_train_normalized.values
     X_test = x_test_normalized.values
     # Calculate leverage and standard deviation for the training set
@@ -200,8 +200,17 @@ def applicability_domain(x_test_normalized, x_train_normalized):
 
     from sklearn.metrics import mean_squared_error
 
-    # Train a linear regression model
-    lr = LinearRegression()
+    # Train a random forest model
+    from sklearn.ensemble import RandomForestRegressor
+
+
+    lr = RandomForestRegressor(
+        n_estimators=100,        # Number of trees in the forest
+        max_depth=10,           # Max depth of each tree
+        min_samples_split=2,    # Minimum samples required to split an internal node
+        random_state=42         # For reproducibility
+    )
+     = LinearRegression()
     lr.fit(df_train_normalized, y_train)
     y_pred_train = lr.predict(df_train_normalized)
     
@@ -316,6 +325,131 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
     
         return final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test
 
+#Calculating the William's plot limits
+def calculate_wp_plot_limits(leverage_train,std_residual_train, x_std_max=4, x_std_min=-4):
+    
+    with st.spinner('CALCULATING APPLICABILITY DOMAIN (STEP 3 OF 3)...'):
+        # Simulate a long-running computation
+        time.sleep(1)  # Sleep for 5 seconds to mimic computation
+        # Getting maximum std value
+        if std_residual_train.max() < 4:
+            x_lim_max_std = x_std_max
+        elif std_residual_train.max() > 4:
+            x_lim_max_std = round(std_residual_train.max()) + 1
+
+        # Getting minimum std value
+        if std_residual_train.min() > -4:
+            x_lim_min_std = x_std_min
+        elif std_residual_train.min() < 4:
+            x_lim_min_std = round(std_residual_train.min()) - 1
+
+    
+        #st.write('x_lim_max_std:', x_lim_max_std)
+        #st.write('x_lim_min_std:', x_lim_min_std)
+
+        # Calculation H critical
+        n = len(leverage_train)
+        p = df_train_normalized.shape[1]
+        h_value = 3 * (p + 1) / n
+        h_critical = round(h_value, 4)
+        #st.write('Number of cases training:', n)
+        #st.write('Number of variables:', p)
+        #st.write('h_critical:', h_critical)
+
+        # Getting maximum leverage value
+        if leverage_train.max() < h_critical:
+            x_lim_max_lev = h_critical + h_critical * 0.5
+        elif leverage_train.max() > h_critical:
+            x_lim_max_lev = leverage_train.max() + (leverage_train.max()) * 0.1
+
+        # Getting minimum leverage value
+        if leverage_train.min() < 0:
+            x_lim_min_lev = x_lev_min - x_lev_min * 0.05
+        elif leverage_train.min() > 0:
+            x_lim_min_lev = 0
+
+        #st.write('x_lim_max_lev:', x_lim_max_lev)
+
+        return x_lim_max_std, x_lim_min_std, h_critical, x_lim_max_lev, x_lim_min_lev
+
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+
+def williams_plot(leverage_train, leverage_test, std_residual_train, std_residual_test,id_list_1,
+                  plot_color='cornflowerblue', show_plot=True, save_plot=False, filename=None, add_title=False, title=None):
+    fig = go.Figure()
+
+    # Add training data points
+    fig.add_trace(go.Scatter(
+        x=leverage_train,
+        y=std_residual_train,
+        mode='markers',
+        marker=dict(color='cornflowerblue', size=10, line=dict(width=1, color='black')),
+        name='Training'
+    ))
+
+    # Add test data points
+    fig.add_trace(go.Scatter(
+        x=leverage_test,
+        y=std_residual_test,
+        mode='markers',
+        marker=dict(color='orange', size=10, line=dict(width=1, color='black')),
+        name='Prediction',
+        text = id_list_1, # Add compounds IDs for hover
+        hoverinfo = 'text' #Show only the text when hovering
+    ))
+
+    # Add horizontal and vertical dashed lines
+    fig.add_shape(type='line', x0=h_critical, y0=x_lim_min_std, x1=h_critical, y1=x_lim_max_std,
+                  line=dict(color='black', dash='dash'))
+    fig.add_shape(type='line', x0=x_lim_min_lev, y0=3, x1=x_lim_max_lev, y1=3,
+                  line=dict(color='black', dash='dash'))
+    fig.add_shape(type='line', x0=x_lim_min_lev, y0=-3, x1=x_lim_max_lev, y1=-3,
+                  line=dict(color='black', dash='dash'))
+
+    # Add rectangles for outlier zones
+    fig.add_shape(type='rect', x0=x_lim_min_lev, y0=x_lim_min_std, x1=h_critical, y1=-3,
+                  fillcolor='lightgray', opacity=0.4, line_width=0)
+    fig.add_shape(type='rect', x0=x_lim_min_lev, y0=3, x1=h_critical, y1=x_lim_max_std,
+                  fillcolor='lightgray', opacity=0.4, line_width=0)
+                      
+    fig.add_shape(type='rect', x0=h_critical, y0=x_lim_min_std, x1=x_lim_max_lev, y1=-3,
+                  fillcolor='lightgray', opacity=0.4, line_width=0)
+    fig.add_shape(type='rect', x0=h_critical, y0=3, x1=x_lim_max_lev, y1=x_lim_max_std,
+                  fillcolor='lightgray', opacity=0.4, line_width=0)
+
+    # Add annotations for outlier zones
+    fig.add_annotation(x=(h_critical + x_lim_min_lev) / 2, y=-3.5, text='Outlier zone', showarrow=False,
+                       font=dict(size=15))
+    fig.add_annotation(x=(h_critical + x_lim_min_lev) / 2, y=3.5, text='Outlier zone', showarrow=False,
+                       font=dict(size=15))
+    fig.add_annotation(x=(h_critical + x_lim_max_lev) / 2, y=-3.5, text='Outlier zone', showarrow=False,
+                       font=dict(size=15))
+    fig.add_annotation(x=(h_critical + x_lim_max_lev) / 2, y=3.5, text='Outlier zone', showarrow=False,
+                       font=dict(size=15))
+
+    # Update layout
+    fig.update_layout(
+        width=600,
+        height=600,
+        xaxis=dict(title='Leverage', range=[x_lim_min_lev, x_lim_max_lev], tickfont=dict(size=15)),
+        yaxis=dict(title='Std Residuals', range=[x_lim_min_std, x_lim_max_std], tickfont=dict(size=15)),
+        legend=dict(x=0.99, y=0.825, xanchor='right', yanchor='top', font=dict(size=20)),
+        showlegend=True
+    )
+
+    if add_title and title:
+        fig.update_layout(title=dict(text=title, font=dict(size=20)))
+
+    if save_plot and filename:
+        fig.write_image(filename)
+
+    if show_plot:
+        fig.show()
+
+    return fig
+
 
 
 #Data C. lytica at 10 psi
@@ -353,6 +487,14 @@ df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)
 
 st.dataframe(data_train_1.head(5))
 
+final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test= predictions(loaded_model, loaded_desc, df_test_normalized)
+#final_file2, styled_df2,leverage_train2,std_residual_train2, leverage_test2, std_residual_test2= predictions2(loaded_model2, loaded_desc2, df_test_normalized2)
+        
+x_lim_max_std, x_lim_min_std, h_critical, x_lim_max_lev, x_lim_min_lev = calculate_wp_plot_limits(leverage_train,std_residual_train, x_std_max=4, x_std_min=-4)
+#x_lim_max_std2, x_lim_min_std2, h_critical2, x_lim_max_lev2, x_lim_min_lev2 = calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max2=4, x_std_min2=-4)
+        
+figure  = williams_plot(leverage_train, leverage_test, std_residual_train, std_residual_test,id_list_1)
+#figure2  = williams_plot2(leverage_train2, leverage_test2, std_residual_train2, std_residual_test2,id_list_2)
 
 
 #st.markdown(filedownload5(df_test_normalized), unsafe_allow_html=True)
