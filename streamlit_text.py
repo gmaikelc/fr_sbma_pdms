@@ -107,15 +107,17 @@ st.write('fraction pdms:', fraction_pdms)
 
 descriptors_sbma_pdms = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
 
-def reading_reorder(data):
+def reading_reorder(data, loaded_desc):
         
     #Select the specified columns from the DataFrame
     df_selected = data[loaded_desc]
     df_id = data.reset_index()
-    df_id.rename(columns={'MolID': 'NAME'}, inplace=True)
+    df_id.rename(columns={'index': 'NAME'}, inplace=True)
     id = df_id['NAME'] 
     # Order the DataFrame by the specified list of columns
     test_data = df_selected.reindex(columns=loaded_desc)
+    # Fill missing values with 0
+    #test_data = test_data.fillna(0)
     #descriptors_total = data[loaded_desc]
 
 
@@ -301,6 +303,8 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
         styled_df = df_no_duplicates.style.apply(lambda row: [f"background-color: {get_color(row['Confidence'])}" for _ in row],subset=["Confidence"], axis=1)
     
         return final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test
+
+
 
 #Data C. lytica at 10 psi
 #data_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
