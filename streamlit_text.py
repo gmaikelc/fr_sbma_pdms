@@ -146,7 +146,7 @@ def mixture_descriptors(data1, data2):
     #df_mixture_right = pd.DataFrame(df_mixture_right, columns=test_data.columns)
 
     # Initialize DataFrame for the final result
-    #df_sum_mixture = pd.DataFrame(index=test_data1.index)
+    df_sum_mixture = pd.DataFrame(index=df_mixture_left.index)
     # Sum the DataFrames row-wise by column name
     df_sum_mixture = df_mixture_left.add(df_mixture_right)
     # Set the index of df1 to match the index of df2
