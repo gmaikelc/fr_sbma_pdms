@@ -142,7 +142,7 @@ def mixture_descriptors(data1, data2):
     df_mixture_right = component2* test_data2
 
     st.dataframe(df_mixture_left)
-    st.write(df_mixture_right)
+    st.dataframe(df_mixture_right)
 
     df_mixture_left = df_mixture_left.reset_index(drop=True)
     df_mixture_right = df_mixture_right.reset_index(drop=True)
