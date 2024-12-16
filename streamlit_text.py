@@ -174,6 +174,7 @@ def normalize_data(train_data, test_data):
     np_test_scaled = min_max_scaler.transform(test_data)
     df_test_normalized = pd.DataFrame(np_test_scaled, columns=saved_cols)
 
+    st.write('Normalized data')
     st.dataframe(df_test_normalized)
                  
     return df_train_normalized, df_test_normalized
