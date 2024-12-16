@@ -261,13 +261,14 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
     idx = data['ID']
     
 
-    descriptors_model = loaded_desc
+    #descriptors_model = loaded_desc
     # Placeholder for the spinner
     with st.spinner('CALCULATING PREDICTIONS (STEP 2 OF 3)...'):
         # Simulate a long-running computation
         time.sleep(1)  # Sleep for 5 seconds to mimic computation
-     
-        X = df_test_normalized[descriptors_model]
+
+        X = df_test_normalized
+        #X = df_test_normalized[descriptors_model]
         predictions = loaded_model.predict(X)
         scores.append(predictions)
         
