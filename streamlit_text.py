@@ -157,7 +157,7 @@ def mixture_descriptors(data1, data2):
     # Sum the DataFrames row-wise by column name
     df_sum_mixture = df_mixture_left.add(df_mixture_right)
     # Set the index of df1 to match the index of df2
-    df_sum_mixture = df_sum_mixture.iloc[:,1:]
+    df_sum_mixture = df_sum_mixture.iloc[:,0:]
     st.write('dataframe mixture descriptors')
     st.dataframe(df_sum_mixture)
 
