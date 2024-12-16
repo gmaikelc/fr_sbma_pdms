@@ -120,6 +120,8 @@ def reading_reorder(data, loaded_desc):
     #test_data = test_data.fillna(0)
     #descriptors_total = data[loaded_desc]
 
+    return test_data, id
+
 
 def mixture_descriptors(data1, data2):
     # Extract component fractions
