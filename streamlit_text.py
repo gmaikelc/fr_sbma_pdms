@@ -139,7 +139,7 @@ def mixture_descriptors(data1, data2):
     df_mixture_right = component2* test_data2
 
     st.dataframe(df_mixture_left)
-    st.dataframe(df_mixture_right)
+    st.write(df_mixture_right)
     
     # Create a new DataFrame using the result and set column names from data1 and data2
     #df_mixture_left = pd.DataFrame(df_mixture_left, columns=test_data.columns)
