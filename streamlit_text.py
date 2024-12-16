@@ -450,8 +450,8 @@ def williams_plot(leverage_train, leverage_test, std_residual_train, std_residua
 
     return fig
 
-run = st.button("Click to make prediction for the drawn structure")
-    if run == True
+run = st.button("Make prediction for the SBMA PDMS system")
+if run == True
 
         ID='1'
         data = pd.DataFrame({'ID': [ID],})
