@@ -160,6 +160,8 @@ def mixture_descriptors(data1, data2):
     df_sum_mixture = df_sum_mixture.iloc[:,0:]
     st.write('dataframe mixture descriptors')
     st.dataframe(df_sum_mixture)
+    st.write(choice)
+    #df_sum_mixture = df_sum_mixture*choice
 
     return df_sum_mixture
 
