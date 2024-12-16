@@ -462,7 +462,7 @@ if run == True:
         #data_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
         #data_train_clyt10psi = data_clyt10psi[data_clyt10psi['Series_p1'] == 'Training'] 
         data_train_1 = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
-        mean_value_1 = data_train_1['c_lytica_removal_at_10psi'].mean()
+        mean_value = data_train_1['c_lytica_removal_at_10psi'].mean()
         loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
         loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
 
