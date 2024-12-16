@@ -269,6 +269,7 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
 
         X = df_test_normalized
         #X = df_test_normalized[descriptors_model]
+        loaded_model.fit(df_train_normalized,y_train)
         predictions = loaded_model.predict(X)
         scores.append(predictions)
         
