@@ -145,6 +145,9 @@ def mixture_descriptors(data1, data2):
     df_mixture_left = pd.DataFrame(df_mixture_left, index=test_data1.index)
     df_mixture_right = pd.DataFrame(df_mixture_right, index=test_data1.index)
 
+    st.dataframe(df_mixture_left)
+    st.write(df_mixture_right)
+    
     df_mixture_left = df_mixture_left.fillna(0)
     df_mixture_right = df_mixture_right.fillna(0)
 
