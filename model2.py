@@ -25,7 +25,7 @@ def reading_reorder2(data, loaded_desc):
     return test_data, id
 
 
-def mixture_descriptors2(data1, data2):
+def mixture_descriptors2(data1, data2,sbma_mw,pdms_mw):
     # Extract component fractions
     sbma_mw_unit = 280.41
     pdms_mw_unit = 92.12
