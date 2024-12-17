@@ -583,7 +583,7 @@ def applicability_domain2(df_test_normalized2, df_train_normalized2):
     diagonal_compare2 = list(leverage_test2)
     h_results2 =[]
     for valor in diagonal_compare2:
-        if valor < h3:
+        if valor < h3_2:
             h_results2.append(True)
         else:
             h_results2.append(False)         
