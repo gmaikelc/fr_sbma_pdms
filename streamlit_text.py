@@ -504,9 +504,9 @@ if run == True:
 
         #st.dataframe(data_train_1.head(5))
     
-        st.write(loaded_desc)
+        #st.write(loaded_desc)
     
-        st.write(loaded_model)
+        #st.write(loaded_model)
 
         final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test= predictions(loaded_model, loaded_desc, df_test_normalized)
         #final_file2, styled_df2,leverage_train2,std_residual_train2, leverage_test2, std_residual_test2= predictions2(loaded_model2, loaded_desc2, df_test_normalized2)
