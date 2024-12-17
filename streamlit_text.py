@@ -887,7 +887,7 @@ if run == True:
         col3, col4 = st.columns(2)
 
         with col3:
-            #st.header(f"Model in progress")
+            st.header(f"Model in progress")
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
             #st.subheader(f"[SBMA-{sbma_mw}]-[PDMS-{pdms_mw}] at {percentage}%")
             #st.write(styled_df)
