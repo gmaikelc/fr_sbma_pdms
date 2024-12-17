@@ -9,23 +9,23 @@
 # Convert the selected percentage to a float
 #percentage = float(choice.strip('%'))
 
-def reading_reorder2(data, loaded_desc):
+def reading_reorder2(data2, loaded_desc2):
         
     #Select the specified columns from the DataFrame
-    df_selected = data[loaded_desc]
-    df_id = data.reset_index()
-    df_id.rename(columns={'MolID': 'NAME'}, inplace=True)
-    id = df_id['NAME'] 
+    df_selected2 = data2[loaded_desc2]
+    df_id2 = data2.reset_index()
+    df_id2.rename(columns={'MolID': 'NAME'}, inplace=True)
+    id2= df_id2['NAME'] 
     # Order the DataFrame by the specified list of columns
-    test_data = df_selected.reindex(columns=loaded_desc)
+    test_data2 = df_selected2.reindex(columns=loaded_desc2)
     # Fill missing values with 0
     #test_data = test_data.fillna(0)
     #descriptors_total = data[loaded_desc]
 
-    return test_data, id
+    return test_data2, id2
 
 
-def mixture_descriptors2(data1, data2,sbma_mw,pdms_mw):
+def mixture_descriptors2(data21, data22,sbma_mw,pdms_mw):
     # Extract component fractions
     sbma_mw_unit = 280.41
     pdms_mw_unit = 92.12
@@ -37,41 +37,38 @@ def mixture_descriptors2(data1, data2,sbma_mw,pdms_mw):
     component2 = fraction_pdms #data['Component2']
 
     # Multiply corresponding rows in data1 and data2 for all columns
-    df_mixture_left = component1* test_data1
-    df_mixture_right = component2* test_data2
+    df_mixture_left2 = component1* test_data21
+    df_mixture_right2 = component2* test_data22
 
-    #st.dataframe(df_mixture_left)
-    #st.dataframe(df_mixture_right)
-
-    df_mixture_left = df_mixture_left.reset_index(drop=True)
-    df_mixture_right = df_mixture_right.reset_index(drop=True)
+    df_mixture_left2 = df_mixture_left2.reset_index(drop=True)
+    df_mixture_right2 = df_mixture_right2.reset_index(drop=True)
     
     # Sum the DataFrames row-wise by column name
-    df_sum_mixture_ini = df_mixture_left.add(df_mixture_right)
+    df_sum_mixture_ini2 = df_mixture_left2.add(df_mixture_right2)
     # Remove the column index from the dataframe 
-    df_sum_mixture_ini = df_sum_mixture_ini.iloc[:,0:]
+    df_sum_mixture_ini2 = df_sum_mixture_ini2.iloc[:,0:]
     #st.write('dataframe mixture descriptors')
     #st.dataframe(df_sum_mixture_ini)
     #st.write(choice)
     # Multiply the DataFrame by the selected percentage
-    df_sum_mixture = df_sum_mixture_ini * percentage
+    df_sum_mixture2 = df_sum_mixture_ini2 * percentage
     #st.write('dataframe  by percent added')
     #st.dataframe(df_sum_mixture)
 
-    return df_sum_mixture
+    return df_sum_mixture2
 
 
-def normalize_data2(train_data, test_data):
+def normalize_data2(train_data2, test_data2):
     # Normalize the training data
-    df_train = pd.DataFrame(train_data)
-    saved_cols = df_train.columns
-    min_max_scaler = preprocessing.MinMaxScaler().fit(df_train)
-    np_train_scaled = min_max_scaler.transform(df_train)
-    df_train_normalized = pd.DataFrame(np_train_scaled, columns=saved_cols)
+    df_train2 = pd.DataFrame(train_data2)
+    saved_cols = df_train2.columns
+    min_max_scaler2 = preprocessing.MinMaxScaler().fit(df_train2)
+    np_train_scaled2 = min_max_scaler2.transform(df_train2)
+    df_train_normalized2 = pd.DataFrame(np_train_scaled2, columns=saved_cols)
 
     # Normalize the test data using the scaler fitted on training data
-    np_test_scaled = min_max_scaler.transform(test_data)
-    df_test_normalized = pd.DataFrame(np_test_scaled, columns=saved_cols)
+    np_test_scaled2 = min_max_scaler.transform(test_data2)
+    df_test_normalized2 = pd.DataFrame(np_test_scaled2, columns=saved_cols2)
 
     #st.write('Normalized data')
     #st.dataframe(df_test_normalized)
@@ -79,33 +76,33 @@ def normalize_data2(train_data, test_data):
     #st.write('Train normalized')
     #st.dataframe(df_train_normalized.head(5))
                  
-    return df_train_normalized, df_test_normalized
+    return df_train_normalized2, df_test_normalized2
 
 
-def applicability_domain2(df_test_normalized, df_train_normalized):
-    y_train=data_train_2['c_lytica_removal_at_10psi']
-    X_train = df_train_normalized.values
-    X_test = df_test_normalized.values
+def applicability_domain2(df_test_normalized2, df_train_normalized2):
+    y_train2=data_train_2['c_lytica_removal_at_10psi']
+    X_train2 = df_train_normalized2.values
+    X_test2 = df_test_normalized2.values
 
     # Add a small value to the diagonal
     epsilon = 1e-10
-    XTX = X_train.T @ X_train
-    XTX += np.eye(XTX.shape[0]) * epsilon
+    XTX2 = X_train2.T @ X_train2
+    XTX2 += np.eye(XTX2.shape[0]) * epsilon
 
     # Compute the hat matrix
-    hat_matrix_train = X_train @ np.linalg.inv(XTX) @ X_train.T
+    hat_matrix_train2 = X_train2 @ np.linalg.inv(XTX2) @ X_train2.T
 
     # Calculate leverage and standard deviation for the training set
     #hat_matrix_train = X_train @ np.linalg.inv(X_train.T @ X_train) @ X_train.T
     
-    leverage_train = np.diagonal(hat_matrix_train)
-    leverage_train=leverage_train.ravel()
+    leverage_train2 = np.diagonal(hat_matrix_train2)
+    leverage_train2 = leverage_train2.ravel()
     
     # Calculate leverage and standard deviation for the test set
-    hat_matrix_test = X_test @ np.linalg.inv(XTX) @ X_test.T
+    hat_matrix_test2 = X_test2 @ np.linalg.inv(XTX2) @ X_test2.T
     #hat_matrix_test = X_test @ np.linalg.inv(X_train.T @ X_train) @ X_test.T
-    leverage_test = np.diagonal(hat_matrix_test)
-    leverage_test=leverage_test.ravel()
+    leverage_test2 = np.diagonal(hat_matrix_test2)
+    leverage_test2 = leverage_test2.ravel()
 
 
     from sklearn.metrics import mean_squared_error
@@ -113,15 +110,15 @@ def applicability_domain2(df_test_normalized, df_train_normalized):
     # Train a random forest model
     from sklearn.ensemble import RandomForestRegressor
 
-    lr = RandomForestRegressor(
+    lr2 = RandomForestRegressor(
         n_estimators=100,        # Number of trees in the forest
         max_depth=10,           # Max depth of each tree
         min_samples_split=2,    # Minimum samples required to split an internal node
         random_state=42         # For reproducibility
     )
     
-    lr.fit(df_train_normalized, y_train)
-    y_pred_train = lr.predict(df_train_normalized)
+    lr2.fit(df_train_normalized2, y_train2)
+    y_pred_train2 = lr2.predict(df_train_normalized2)
     
     std_dev_train = np.sqrt(mean_squared_error(y_train, y_pred_train))
     std_residual_train = (y_train - y_pred_train) / std_dev_train
