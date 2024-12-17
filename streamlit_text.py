@@ -534,7 +534,7 @@ if run == True:
             #st.subheader(r'Predictions')
             #st.write(styled_df2)
             st.markdown("<h2 style='text-align: center; font-size: 30px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
-            st.plotly_chart(figure1,use_container_width=True)
+            st.plotly_chart(figure,use_container_width=True)
             #st.markdown(":point_down: **Here you can download the results for Fresh Water model**", unsafe_allow_html=True,)
             #st.markdown(filedownload2(final_file2), unsafe_allow_html=True)
 
