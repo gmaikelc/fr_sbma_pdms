@@ -884,7 +884,7 @@ if run == True:
             #st.markdown(":point_down: **Here you can download the results for  model**", unsafe_allow_html=True,)
             #st.markdown(filedownload2(final_file2), unsafe_allow_html=True)
 
- col3, col4 = st.columns(2)
+        col3, col4 = st.columns(2)
 
         with col3:
             #st.header(f"Model in progress")
