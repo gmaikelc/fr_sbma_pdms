@@ -472,6 +472,7 @@ if run == True:
         data = pd.DataFrame({'ID': [ID],})
 
         #Data C. lytica at 10 psi
+        descriptors_sbma_pdms = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
         data_train_1 = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
         mean_value = data_train_1['c_lytica_removal_at_10psi'].mean()
         loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
@@ -492,23 +493,24 @@ if run == True:
 
 
          #Data C. lytica at 10 psi
+        descriptors_sbma_pdms2 = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
         data_train_2 = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
         mean_value2 = data_train_2['c_lytica_removal_at_10psi'].mean()
-        loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
-        loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
-        train_data = data_train_2[loaded_desc]
+        loaded_model2 = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
+        loaded_desc2 = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
+        train_data2 = data_train_2[loaded_desc]
         #Selecting the descriptors based on model for first component
       
-        descriptors_sbma = descriptors_sbma_pdms.iloc[0:1,:]
-        descriptors_pdms = descriptors_sbma_pdms.iloc[1:2,:]
-        test_data1, id_list_1 =  reading_reorder2(descriptors_sbma,loaded_desc)
+        descriptors_sbma2 = descriptors_sbma_pdms.iloc[0:1,:]
+        descriptors_pdms2 = descriptors_sbma_pdms.iloc[1:2,:]
+        test_data21, id_list_21 =  reading_reorder2(descriptors_sbma2,loaded_desc2)
         #Selecting the descriptors based on model for first component
-        test_data2, id_list_2 =  reading_reorder2(descriptors_pdms,loaded_desc)
+        test_data22, id_list_22 =  reading_reorder2(descriptors_pdms2,loaded_desc2)
 
         #Calculating mixture descriptors    
-        test_data_mix= mixture_descriptors2(test_data1,test_data2,sbma_mw,pdms_mw)
-        X_final2= test_data_mix
-        df_train_normalized, df_test_normalized = normalize_data2(train_data, X_final2)               
+        test_data_mix21= mixture_descriptors2(test_data21,test_data22,sbma_mw,pdms_mw)
+        X_final22= test_data_mix21
+        df_train_normalized2, df_test_normalized2 = normalize_data2(train_data2, X_final22)               
 
         #st.dataframe(data_train_1.head(5))
     
