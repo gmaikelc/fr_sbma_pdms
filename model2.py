@@ -32,9 +32,11 @@ def mixture_descriptors2(data21, data22,sbma_mw,pdms_mw):
 
     fraction_sbma = sbma_mw/sbma_mw_unit
     fraction_pdms = pdms_mw/pdms_mw_unit
+	
     
     component1 = fraction_sbma  #data['Component1']
     component2 = fraction_pdms #data['Component2']
+    st.write(component1)
 
     # Multiply corresponding rows in data1 and data2 for all columns
     df_mixture_left2 = component1* test_data21
