@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri December 13 14:41:37 2024
+Created on Fri December 17 12:41:37 (CST) 2024
 
 @author: Gerardo Casanola
 """
