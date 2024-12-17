@@ -501,8 +501,8 @@ if run == True:
         train_data2 = data_train_2[loaded_desc]
         #Selecting the descriptors based on model for first component
       
-        descriptors_sbma2 = descriptors_sbma_pdms.iloc[0:1,:]
-        descriptors_pdms2 = descriptors_sbma_pdms.iloc[1:2,:]
+        descriptors_sbma2 = descriptors_sbma_pdms2.iloc[0:1,:]
+        descriptors_pdms2 = descriptors_sbma_pdms2.iloc[1:2,:]
         test_data21, id_list_21 =  reading_reorder2(descriptors_sbma2,loaded_desc2)
         #Selecting the descriptors based on model for first component
         test_data22, id_list_22 =  reading_reorder2(descriptors_pdms2,loaded_desc2)
