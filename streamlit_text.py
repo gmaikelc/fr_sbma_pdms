@@ -668,7 +668,7 @@ def predictions2(loaded_model2, loaded_desc2, df_test_normalized2):
         std_ad_calc2 = std_ad_calc2.replace({True: 'Outside AD', False: 'Inside AD'})
    
     
-        final_file2 = pd.concat([std_ad_calc2,h_final,dataframe_pred2], axis=1)
+        final_file2 = pd.concat([std_ad_calc2,h_final2,dataframe_pred2], axis=1)
     
         final_file2.rename(columns={0: "Std_residual"},inplace=True)
     
