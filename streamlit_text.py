@@ -472,33 +472,43 @@ if run == True:
         data = pd.DataFrame({'ID': [ID],})
 
         #Data C. lytica at 10 psi
-        #data_clyt10psi = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
-        #data_train_clyt10psi = data_clyt10psi[data_clyt10psi['Series_p1'] == 'Training'] 
         data_train_1 = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
         mean_value = data_train_1['c_lytica_removal_at_10psi'].mean()
         loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
         loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
-
         train_data = data_train_1[loaded_desc]
         #Selecting the descriptors based on model for first component
       
         descriptors_sbma = descriptors_sbma_pdms.iloc[0:1,:]
         descriptors_pdms = descriptors_sbma_pdms.iloc[1:2,:]
-    
         test_data1, id_list_1 =  reading_reorder(descriptors_sbma,loaded_desc)
         #Selecting the descriptors based on model for first component
         test_data2, id_list_2 =  reading_reorder(descriptors_pdms,loaded_desc)
 
         #Calculating mixture descriptors    
         test_data_mix= mixture_descriptors(test_data1,test_data2)
-        #st.dataframe(test_data_mix)
-        #test_data_mix.fillna(0,inplace=True)
-        #st.markdown(filedownload4(test_data_mix), unsafe_allow_html=True)
-
         X_final2= test_data_mix
-        df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)               
+        df_train_normalized, df_test_normalized = normalize_data(train_data, X_final2)        
 
-        #X_final1, id = all_correct_model(test_data_mix,loaded_desc, id_list)
+
+         #Data C. lytica at 10 psi
+        data_train_2 = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
+        mean_value2 = data_train_2['c_lytica_removal_at_10psi'].mean()
+        loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
+        loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
+        train_data = data_train_2[loaded_desc]
+        #Selecting the descriptors based on model for first component
+      
+        descriptors_sbma = descriptors_sbma_pdms.iloc[0:1,:]
+        descriptors_pdms = descriptors_sbma_pdms.iloc[1:2,:]
+        test_data1, id_list_1 =  reading_reorder2(descriptors_sbma,loaded_desc)
+        #Selecting the descriptors based on model for first component
+        test_data2, id_list_2 =  reading_reorder2(descriptors_pdms,loaded_desc)
+
+        #Calculating mixture descriptors    
+        test_data_mix= mixture_descriptors2(test_data1,test_data2)
+        X_final2= test_data_mix
+        df_train_normalized, df_test_normalized = normalize_data2(train_data, X_final2)               
 
         #st.dataframe(data_train_1.head(5))
     
@@ -507,13 +517,13 @@ if run == True:
         #st.write(loaded_model)
 
         final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test= predictions(loaded_model, loaded_desc, df_test_normalized)
-        #final_file2, styled_df2,leverage_train2,std_residual_train2, leverage_test2, std_residual_test2= predictions2(loaded_model2, loaded_desc2, df_test_normalized2)
+        final_file2, styled_df2,leverage_train2,std_residual_train2, leverage_test2, std_residual_test2= predictions2(loaded_model2, loaded_desc2, df_test_normalized2)
         
         x_lim_max_std, x_lim_min_std, h_critical, x_lim_max_lev, x_lim_min_lev = calculate_wp_plot_limits(leverage_train,std_residual_train, x_std_max=4, x_std_min=-4)
-        #x_lim_max_std2, x_lim_min_std2, h_critical2, x_lim_max_lev2, x_lim_min_lev2 = calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max2=4, x_std_min2=-4)
+        x_lim_max_std2, x_lim_min_std2, h_critical2, x_lim_max_lev2, x_lim_min_lev2 = calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max2=4, x_std_min2=-4)
         
         figure  = williams_plot(leverage_train, leverage_test, std_residual_train, std_residual_test,id_list_1)
-        #figure2  = williams_plot2(leverage_train2, leverage_test2, std_residual_train2, std_residual_test2,id_list_2)
+        figure2  = williams_plot2(leverage_train2, leverage_test2, std_residual_train2, std_residual_test2,id_list_2)
 
         col1, col2 = st.columns(2)
 
@@ -522,17 +532,17 @@ if run == True:
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
             st.subheader(f"Fouling Release SBMA-PDMS at {percentage}%")
             st.write(styled_df)
-            #st.markdown("<h2 style='text-align: center; font-size: 30px;'>f'Fouling Release SBMA-PDMS at {percentage}%'</h2>", unsafe_allow_html=True)
-            #st.plotly_chart(figure,use_container_width=True)
+            st.markdown("<h2 style='text-align: center; font-size: 30px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
+            st.plotly_chart(figure,use_container_width=True)
             #st.markdown(":point_down: **Here you can download the results for Salt Water model**", unsafe_allow_html=True,)
             #st.markdown(filedownload1(final_file), unsafe_allow_html=True)
         with col2:
             #st.header("Fresh Water")
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
-            #st.subheader(r'Predictions')
-            #st.write(styled_df2)
+            st.subheader(Fouling Release SBMA-PDMS at {percentage}%)
+            st.write(styled_df2)
             st.markdown("<h2 style='text-align: center; font-size: 30px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
-            st.plotly_chart(figure,use_container_width=True)
+            st.plotly_chart(figure2,use_container_width=True)
             #st.markdown(":point_down: **Here you can download the results for Fresh Water model**", unsafe_allow_html=True,)
             #st.markdown(filedownload2(final_file2), unsafe_allow_html=True)
 
