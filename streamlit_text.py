@@ -884,6 +884,26 @@ if run == True:
             #st.markdown(":point_down: **Here you can download the results for  model**", unsafe_allow_html=True,)
             #st.markdown(filedownload2(final_file2), unsafe_allow_html=True)
 
+ col3, col4 = st.columns(2)
+
+        with col3:
+            #st.header(f"Model in progress")
+            #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
+            #st.subheader(f"[SBMA-{sbma_mw}]-[PDMS-{pdms_mw}] at {percentage}%")
+            #st.write(styled_df)
+            #st.markdown("<h2 style='text-align: center; font-size: 24px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
+            #st.plotly_chart(figure,use_container_width=True)
+            #st.markdown(":point_down: **Here you can download the results for  model**", unsafe_allow_html=True,)
+            #st.markdown(filedownload1(final_file), unsafe_allow_html=True)
+        with col4:
+            st.header(f"Model in progress"))
+            #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
+            #st.subheader(f"[SBMA-{sbma_mw}]-[PDMS-{pdms_mw}] at {percentage}%")
+            #st.write(styled_df2)
+            #st.markdown("<h2 style='text-align: center; font-size: 24px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
+            #st.plotly_chart(figure2,use_container_width=True)
+            #st.markdown(":point_down: **Here you can download the results for  model**", unsafe_allow_html=True,)
+            #st.markdown(filedownload2(final_file2), unsafe_allow_html=True)
 
 
 #Footer edit
