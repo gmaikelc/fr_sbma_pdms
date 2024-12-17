@@ -871,7 +871,7 @@ if run == True:
         with col1:
             #st.header(f"[SBMA-{sbma_mw}]-[PDMS-{pdms_mw}] at {percentage}%")
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
-            st.subheader(f"Fouling Release SBMA-PDMS at {percentage}%")
+            st.subheader(f"[SBMA-{sbma_mw}]-[PDMS-{pdms_mw}] at {percentage}%")
             st.write(styled_df)
             st.markdown("<h2 style='text-align: center; font-size: 24px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
             st.plotly_chart(figure,use_container_width=True)
