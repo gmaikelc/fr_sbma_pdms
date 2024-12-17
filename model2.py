@@ -1,13 +1,13 @@
 
 # Input for 'SBMA molecular weight'
-sbma_mw = col1.number_input('SBMA molecular weight',max_value=6000.0)
+#sbma_mw = col1.number_input('SBMA molecular weight',max_value=6000.0)
    
 
 # Input for 'PDMS molecular weight'
-pdms_mw = col2.number_input('PDMS molecular weight',max_value=11000.0)
+#pdms_mw = col2.number_input('PDMS molecular weight',max_value=11000.0)
 
 # Convert the selected percentage to a float
-percentage = float(choice.strip('%'))
+#percentage = float(choice.strip('%'))
 
 def reading_reorder2(data, loaded_desc):
         
