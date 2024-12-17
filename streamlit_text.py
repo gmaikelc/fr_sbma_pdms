@@ -508,6 +508,8 @@ if run == True:
         test_data22, id_list_22 =  reading_reorder2(descriptors_pdms2,loaded_desc2)
 
         st.dataframe(test_data21)
+        st.dataframe(test_data22)
+        st.write(sbma_mw)
     
         #Calculating mixture descriptors    
         #test_data_mix21= mixture_descriptors2(test_data21,test_data22,sbma_mw,pdms_mw)
