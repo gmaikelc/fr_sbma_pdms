@@ -19,11 +19,11 @@ def reading_reorder2(data, loaded_desc):
 
 def mixture_descriptors2(data1, data2):
     # Extract component fractions
-    #sbma_mw_unit = 280.41
-    #pdms_mw_unit = 92.12
+    sbma_mw_unit = 280.41
+    pdms_mw_unit = 92.12
 
-    #fraction_sbma = sbma_mw/sbma_mw_unit
-    #fraction_pdms = pdms_mw/pdms_mw_unit
+    fraction_sbma = sbma_mw/sbma_mw_unit
+    fraction_pdms = pdms_mw/pdms_mw_unit
     
     component1 = fraction_sbma  #data['Component1']
     component2 = fraction_pdms #data['Component2']
