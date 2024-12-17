@@ -647,7 +647,7 @@ def predictions2(loaded_model2, loaded_desc2, df_test_normalized2):
         std_resd2.append(std_residual_test2)
         
         h_results2, leverage_train2, leverage_test2, std_residual_train2  = applicability_domain2(df_test_normalized2, df_train_normalized2)
-        h_values2.append(h_results)
+        h_values2.append(h_results2)
     
 
         dataframe_pred2 = pd.DataFrame(scores2).T
