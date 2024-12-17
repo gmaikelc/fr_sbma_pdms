@@ -506,7 +506,7 @@ if run == True:
         test_data2, id_list_2 =  reading_reorder2(descriptors_pdms,loaded_desc)
 
         #Calculating mixture descriptors    
-        test_data_mix= mixture_descriptors2(test_data1,test_data2)
+        test_data_mix= mixture_descriptors2(test_data1,test_data2,sbma_mw,pdms_mw)
         X_final2= test_data_mix
         df_train_normalized, df_test_normalized = normalize_data2(train_data, X_final2)               
 
