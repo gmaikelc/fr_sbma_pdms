@@ -129,13 +129,7 @@ def reading_reorder(data, loaded_desc):
 
 
 def mixture_descriptors(data1, data2):
-    # Extract component fractions
-    #sbma_mw_unit = 280.41
-    #pdms_mw_unit = 92.12
-
-    #fraction_sbma = sbma_mw/sbma_mw_unit
-    #fraction_pdms = pdms_mw/pdms_mw_unit
-    
+      
     component1 = fraction_sbma  #data['Component1']
     component2 = fraction_pdms #data['Component2']
 
@@ -481,10 +475,28 @@ def reading_reorder2(data2, loaded_desc2):
 
     return test_data2, id2
 
+def mixture_descriptors(data1, data2):
+      
+    # Multiply corresponding rows in data1 and data2 for all columns
+    df_mixture_left = fraction_sbma* test_data1
+    df_mixture_right = fraction_pdms* test_data2
 
-def mixture_descriptors2(data21, data22,fraction_sbma,fraction_pdms):
+    df_mixture_left = df_mixture_left.reset_index(drop=True)
+    df_mixture_right = df_mixture_right.reset_index(drop=True)
+    
+    # Sum the DataFrames row-wise by column name
+    df_sum_mixture_ini = df_mixture_left.add(df_mixture_right)
+    # Remove the column index from the dataframe 
+    df_sum_mixture_ini = df_sum_mixture_ini.iloc[:,0:]
+  
+    # Multiply the DataFrame by the selected percentage
+    df_sum_mixture = df_sum_mixture_ini * percentage
+
+    return df_sum_mixture
+
+
+def mixture_descriptors2(data21, data22):
      
-
     # Multiply corresponding rows in data1 and data2 for all columns
     df_mixture_left2 = fraction_sbma* test_data21
     df_mixture_right2 = fraction_pdms* test_data22
@@ -498,17 +510,9 @@ def mixture_descriptors2(data21, data22,fraction_sbma,fraction_pdms):
     # Remove the column index from the dataframe 
     df_sum_mixture_ini2 = df_sum_mixture_ini2.iloc[:,0:]
     
-    #st.write('dataframe mixture descriptors')
-    #st.dataframe(df_sum_mixture_ini)
-    #st.write(choice)
-    
     # Multiply the DataFrame by the selected percentage
     df_sum_mixture2 = df_sum_mixture_ini2 * percentage
-    
-    #st.write('dataframe  by percent added')
-    #st.dataframe(df_sum_mixture)
 
-    #return component1
     return df_sum_mixture2
 
 
@@ -521,15 +525,9 @@ def normalize_data2(train_data2, test_data2):
     df_train_normalized2 = pd.DataFrame(np_train_scaled2, columns=saved_cols)
 
     # Normalize the test data using the scaler fitted on training data
-    np_test_scaled2 = min_max_scaler.transform(test_data2)
+    np_test_scaled2 = min_max_scaler2.transform(test_data2)
     df_test_normalized2 = pd.DataFrame(np_test_scaled2, columns=saved_cols2)
 
-    #st.write('Normalized data')
-    #st.dataframe(df_test_normalized)
-
-    #st.write('Train normalized')
-    #st.dataframe(df_train_normalized.head(5))
-                 
     return df_train_normalized2, df_test_normalized2
 
 
@@ -859,7 +857,7 @@ if run == True:
         st.dataframe(test_data22)
            
         #Calculating mixture descriptors    
-        test_data_mix21= mixture_descriptors2(test_data21,test_data22,fraction_sbma,fraction_pdms)
+        test_data_mix21= mixture_descriptors2(test_data21,test_data22)
         X_final22= test_data_mix21
         df_train_normalized2, df_test_normalized2 = normalize_data2(train_data2, X_final22)               
 
