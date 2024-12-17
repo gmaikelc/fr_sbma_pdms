@@ -25,45 +25,35 @@ def reading_reorder2(data2, loaded_desc2):
     return test_data2, id2
 
 
-def mixture_descriptors2(data21, data22,sbma_mw,pdms_mw):
-    # Extract component fractions
-    sbma_mw_unit = 280.41
-    pdms_mw_unit = 92.12
-
-    fraction_sbma = sbma_mw/sbma_mw_unit
-    fraction_pdms = pdms_mw/pdms_mw_unit
-	
-    
-    component1 = fraction_sbma  #data['Component1']
-    component2 = fraction_pdms #data['Component2']
-    
+def mixture_descriptors2(data21, data22,fraction_sbma,fraction_pdms):
+     
 
     # Multiply corresponding rows in data1 and data2 for all columns
     st.write(component1)
-    #df_mixture_left2 = component1* test_data21
-    #df_mixture_right2 = component2* test_data22
+    df_mixture_left2 = fraction_sbma* test_data21
+    df_mixture_right2 = fraction_pdms* test_data22
 
-    #df_mixture_left2 = df_mixture_left2.reset_index(drop=True)
-    #df_mixture_right2 = df_mixture_right2.reset_index(drop=True)
+    df_mixture_left2 = df_mixture_left2.reset_index(drop=True)
+    df_mixture_right2 = df_mixture_right2.reset_index(drop=True)
     
     # Sum the DataFrames row-wise by column name
-    #df_sum_mixture_ini2 = df_mixture_left2.add(df_mixture_right2)
+    df_sum_mixture_ini2 = df_mixture_left2.add(df_mixture_right2)
     
     # Remove the column index from the dataframe 
-    #df_sum_mixture_ini2 = df_sum_mixture_ini2.iloc[:,0:]
+    df_sum_mixture_ini2 = df_sum_mixture_ini2.iloc[:,0:]
     
     #st.write('dataframe mixture descriptors')
     #st.dataframe(df_sum_mixture_ini)
     #st.write(choice)
     
     # Multiply the DataFrame by the selected percentage
-    #df_sum_mixture2 = df_sum_mixture_ini2 * percentage
+    df_sum_mixture2 = df_sum_mixture_ini2 * percentage
     
     #st.write('dataframe  by percent added')
     #st.dataframe(df_sum_mixture)
 
-    return component1
-    #return df_sum_mixture2
+    #return component1
+    return df_sum_mixture2
 
 
 def normalize_data2(train_data2, test_data2):
