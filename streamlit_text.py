@@ -848,9 +848,6 @@ if run == True:
         test_data21, id_list_21 =  reading_reorder2(descriptors_sbma2,loaded_desc2)
         #Selecting the descriptors based on model for first component
         test_data22, id_list_22 =  reading_reorder2(descriptors_pdms2,loaded_desc2)
-
-        st.dataframe(test_data21)
-        st.dataframe(test_data22)
            
         #Calculating mixture descriptors    
         test_data_mix21= mixture_descriptors2(test_data21,test_data22)
@@ -875,35 +872,20 @@ if run == True:
             st.write(styled_df)
             st.markdown("<h2 style='text-align: center; font-size: 24px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
             st.plotly_chart(figure,use_container_width=True)
-            #st.markdown(":point_down: **Here you can download the results for Salt Water model**", unsafe_allow_html=True,)
+            #st.markdown(":point_down: **Here you can download the results for  model**", unsafe_allow_html=True,)
             #st.markdown(filedownload1(final_file), unsafe_allow_html=True)
         with col2:
             #st.header("Fresh Water")
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
-            st.subheader(f"Fouling Release SBMA-PDMS at {percentage}%")
+            st.subheader(f"[SBMA-{sbma_mw}]-[PDMS-{pdms_mw}] at {percentage}%")
             st.write(styled_df2)
             st.markdown("<h2 style='text-align: center; font-size: 24px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
             st.plotly_chart(figure2,use_container_width=True)
-            #st.markdown(":point_down: **Here you can download the results for Fresh Water model**", unsafe_allow_html=True,)
+            #st.markdown(":point_down: **Here you can download the results for  model**", unsafe_allow_html=True,)
             #st.markdown(filedownload2(final_file2), unsafe_allow_html=True)
 
-#st.markdown(filedownload5(df_test_normalized), unsafe_allow_html=True)
-#final_file, styled_df = predictions(loaded_model, loaded_desc, df_test_normalized)
-#figure  = final_plot(final_file)  
-#col1, col2 = st.columns(2)
 
 
-#Data C. lytica at 20 psi
-#data_clyt20psi = pd.read_csv("data/" + "dataset_clytica10psi_norm_ascending_Series_p1.csv")
-#data_train_clyt20psi = data_clyt20psi[data_clyt20psi['Series_p1'] == 'Training'] 
-#mean_value_clyt20psi = data_train_clyt10psi['c_lytica_removal_at_10psi'].mean()
-#loaded_model = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
-#loaded_desc = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
-
-#data_train = pd.read_csv("data/" + "data_126c_15var_pLC50_train_sw.csv")
-#mean_value = data_train['pLC50_sw'].mean()
-#loaded_model = pickle.load(open("models/" + "ml_model_rotifer_sw.pickle", 'rb'))
-#loaded_desc = pickle.load(open("models/" + "ml_descriptor_rotifer_sw.pickle", 'rb'))
 
 
 #Footer edit
