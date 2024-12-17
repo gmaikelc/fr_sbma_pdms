@@ -343,7 +343,7 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
 #Calculating the William's plot limits
 def calculate_wp_plot_limits(leverage_train,std_residual_train, x_std_max=4, x_std_min=-4):
     
-    with st.spinner('CALCULATING APPLICABILITY DOMAIN (STEP 3 OF 3)...'):
+    with st.spinner('CALCULATING APPLICABILITY DOMAIN (STEP 2 OF 2)...'):
         # Simulate a long-running computation
         time.sleep(1)  # Sleep for 5 seconds to mimic computation
         # Getting maximum std value
@@ -464,6 +464,354 @@ def williams_plot(leverage_train, leverage_test, std_residual_train, std_residua
         fig.show()
 
     return fig
+
+
+def reading_reorder2(data2, loaded_desc2):
+        
+    #Select the specified columns from the DataFrame
+    df_selected2 = data2[loaded_desc2]
+    df_id2 = data2.reset_index()
+    df_id2.rename(columns={'MolID': 'NAME'}, inplace=True)
+    id2= df_id2['NAME'] 
+    # Order the DataFrame by the specified list of columns
+    test_data2 = df_selected2.reindex(columns=loaded_desc2)
+    # Fill missing values with 0
+    #test_data = test_data.fillna(0)
+    #descriptors_total = data[loaded_desc]
+
+    return test_data2, id2
+
+
+def mixture_descriptors2(data21, data22,fraction_sbma,fraction_pdms):
+     
+
+    # Multiply corresponding rows in data1 and data2 for all columns
+    df_mixture_left2 = fraction_sbma* test_data21
+    df_mixture_right2 = fraction_pdms* test_data22
+
+    df_mixture_left2 = df_mixture_left2.reset_index(drop=True)
+    df_mixture_right2 = df_mixture_right2.reset_index(drop=True)
+    
+    # Sum the DataFrames row-wise by column name
+    df_sum_mixture_ini2 = df_mixture_left2.add(df_mixture_right2)
+    
+    # Remove the column index from the dataframe 
+    df_sum_mixture_ini2 = df_sum_mixture_ini2.iloc[:,0:]
+    
+    #st.write('dataframe mixture descriptors')
+    #st.dataframe(df_sum_mixture_ini)
+    #st.write(choice)
+    
+    # Multiply the DataFrame by the selected percentage
+    df_sum_mixture2 = df_sum_mixture_ini2 * percentage
+    
+    #st.write('dataframe  by percent added')
+    #st.dataframe(df_sum_mixture)
+
+    #return component1
+    return df_sum_mixture2
+
+
+def normalize_data2(train_data2, test_data2):
+    # Normalize the training data
+    df_train2 = pd.DataFrame(train_data2)
+    saved_cols = df_train2.columns
+    min_max_scaler2 = preprocessing.MinMaxScaler().fit(df_train2)
+    np_train_scaled2 = min_max_scaler2.transform(df_train2)
+    df_train_normalized2 = pd.DataFrame(np_train_scaled2, columns=saved_cols)
+
+    # Normalize the test data using the scaler fitted on training data
+    np_test_scaled2 = min_max_scaler.transform(test_data2)
+    df_test_normalized2 = pd.DataFrame(np_test_scaled2, columns=saved_cols2)
+
+    #st.write('Normalized data')
+    #st.dataframe(df_test_normalized)
+
+    #st.write('Train normalized')
+    #st.dataframe(df_train_normalized.head(5))
+                 
+    return df_train_normalized2, df_test_normalized2
+
+
+def applicability_domain2(df_test_normalized2, df_train_normalized2):
+    y_train2=data_train_2['c_lytica_removal_at_10psi']
+    X_train2 = df_train_normalized2.values
+    X_test2 = df_test_normalized2.values
+
+    # Add a small value to the diagonal
+    epsilon = 1e-10
+    XTX2 = X_train2.T @ X_train2
+    XTX2 += np.eye(XTX2.shape[0]) * epsilon
+
+    # Compute the hat matrix
+    hat_matrix_train2 = X_train2 @ np.linalg.inv(XTX2) @ X_train2.T
+
+    # Calculate leverage and standard deviation for the training set
+    #hat_matrix_train = X_train @ np.linalg.inv(X_train.T @ X_train) @ X_train.T
+    
+    leverage_train2 = np.diagonal(hat_matrix_train2)
+    leverage_train2 = leverage_train2.ravel()
+    
+    # Calculate leverage and standard deviation for the test set
+    hat_matrix_test2 = X_test2 @ np.linalg.inv(XTX2) @ X_test2.T
+    #hat_matrix_test = X_test @ np.linalg.inv(X_train.T @ X_train) @ X_test.T
+    leverage_test2 = np.diagonal(hat_matrix_test2)
+    leverage_test2 = leverage_test2.ravel()
+
+
+    from sklearn.metrics import mean_squared_error
+
+    # Train a random forest model
+    from sklearn.ensemble import RandomForestRegressor
+
+    lr2 = RandomForestRegressor(
+        n_estimators=100,        # Number of trees in the forest
+        max_depth=10,           # Max depth of each tree
+        min_samples_split=2,    # Minimum samples required to split an internal node
+        random_state=42         # For reproducibility
+    )
+    
+    lr2.fit(df_train_normalized2, y_train2)
+    y_pred_train2 = lr2.predict(df_train_normalized2)
+    
+    std_dev_train2 = np.sqrt(mean_squared_error(y_train2, y_pred_train2))
+    std_residual_train2 = (y_train2 - y_pred_train2) / std_dev_train2
+    std_residual_train2 = std_residual_train2.ravel()
+    
+    # threshold for the applicability domain
+    
+    h3_2 = 3*((df_train_normalized2.shape[1]+1)/df_train_normalized2.shape[0])  
+    
+    diagonal_compare2 = list(leverage_test2)
+    h_results2 =[]
+    for valor in diagonal_compare2:
+        if valor < h3:
+            h_results2.append(True)
+        else:
+            h_results2.append(False)         
+    return h_results2, leverage_train2, leverage_test2, std_residual_train2 
+
+# Function to assign colors based on confidence values
+def get_color(confidence2):
+    """
+    Assigns a color based on the confidence value.
+
+    Args:
+        confidence (float): The confidence value.
+
+    Returns:
+        str: The color in hexadecimal format (e.g., '#RRGGBB').
+    """
+    # Define your color logic here based on confidence
+    if confidence2 == "HIGH" or confidence2 == "Inside AD":
+        return 'green'
+    elif confidence2 == "MEDIUM":
+        return 'yellow'
+    else:
+        confidence2 ==  "LOW"
+        return 'red'
+
+
+
+#%% Predictions   
+
+def predictions2(loaded_model2, loaded_desc2, df_test_normalized2):
+    scores2 = []
+    h_values2 = []
+    std_resd2 = []
+    idx2 = data2['ID']
+    
+
+    #descriptors_model = loaded_desc
+    # Placeholder for the spinner
+    with st.spinner('CALCULATING PREDICTIONS (STEP 2 OF 3)...'):
+        # Simulate a long-running computation
+        time.sleep(1)  # Sleep for 5 seconds to mimic computation
+        
+        y_train2=data_train_2['c_lytica_removal_at_20psi']
+        X2 = df_test_normalized2
+        #X = df_test_normalized[descriptors_model]
+        loaded_model.fit(df_train_normalized2,y_train2)
+        predictions2 = loaded_model.predict(X2)
+        scores2.append(predictions2)
+        
+        # y_true and y_pred are the actual and predicted values, respectively
+    
+        # Create y_true array with all elements set to mean value and the same length as y_pred
+        y_pred_test2 = predictions2
+        y_test2 = np.full_like(y_pred_test2, mean_value2)
+        residuals_test2 = y_test2 -y_pred_test2
+
+        std_dev_test2 = np.sqrt(mean_squared_error(y_test2, y_pred_test2))
+        std_residual_test2 = (y_test2 - y_pred_test2) / std_dev_test2
+        std_residual_test2 = std_residual_test2.ravel()
+          
+        std_resd2.append(std_residual_test2)
+        
+        h_results2, leverage_train2, leverage_test2, std_residual_train2  = applicability_domain2(df_test_normalized2, df_train_normalized2)
+        h_values2.append(h_results)
+    
+
+        dataframe_pred2 = pd.DataFrame(scores2).T
+        dataframe_pred2.index = idx2
+        dataframe_pred2.rename(columns={0: "C. lytica percent removal at 10 psi"},inplace=True)
+    
+        dataframe_std2 = pd.DataFrame(std_resd2).T
+        dataframe_std2.index = idx2
+          
+        
+        h_final2 = pd.DataFrame(h_values2).T
+        h_final2.index = idx2
+        h_final2.rename(columns={0: "Confidence"},inplace=True)
+
+        std_ensemble2 = dataframe_std2.iloc[:,0]
+        # Create a mask using boolean indexing
+        std_ad_calc2 = (std_ensemble2 >= 3) | (std_ensemble2 <= -3) 
+        std_ad_calc2 = std_ad_calc2.replace({True: 'Outside AD', False: 'Inside AD'})
+   
+    
+        final_file2 = pd.concat([std_ad_calc2,h_final,dataframe_pred2], axis=1)
+    
+        final_file2.rename(columns={0: "Std_residual"},inplace=True)
+    
+        h3_2 = 3*((df_train_normalized2.shape[1]+1)/df_train_normalized2.shape[0])  ##  Mas flexible
+
+        final_file2.loc[(final_file2["Confidence"] == True) & ((final_file2["Std_residual"] == 'Inside AD' )), 'Confidence'] = 'HIGH'
+        final_file2.loc[(final_file2["Confidence"] == True) & ((final_file2["Std_residual"] == 'Outside AD')), 'Confidence'] = 'LOW'
+        final_file2.loc[(final_file2["Confidence"] == False) & ((final_file2["Std_residual"] == 'Outside AD')), 'Confidence'] = 'LOW'
+        final_file2.loc[(final_file2["Confidence"] == False) & ((final_file2["Std_residual"] == 'Inside AD')), 'Confidence'] = 'MEDIUM'
+
+
+            
+        df_no_duplicates2 = final_file2[~final_file2.index.duplicated(keep='first')]
+        styled_df2 = df_no_duplicates2.style.apply(lambda row: [f"background-color: {get_color(row['Confidence'])}" for _ in row],subset=["Confidence"], axis=1)
+    
+        return final_file2, styled_df2,leverage_train2,std_residual_train2, leverage_test2, std_residual_test2
+
+#Calculating the William's plot limits
+def calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max=4, x_std_min=-4):
+    
+    with st.spinner('CALCULATING APPLICABILITY DOMAIN (STEP 3 OF 3)...'):
+        # Simulate a long-running computation
+        time.sleep(1)  # Sleep for 5 seconds to mimic computation
+        # Getting maximum std value
+        if std_residual_train2.max() < 4:
+            x_lim_max_std2 = x_std_max2
+        elif std_residual_train2.max() > 4:
+            x_lim_max_std2 = round(std_residual_train2.max()) + 1
+
+        # Getting minimum std value
+        if std_residual_train2.min() > -4:
+            x_lim_min_std2 = x_std_min2
+        elif std_residual_train2.min() < 4:
+            x_lim_min_std2 = round(std_residual_train2.min()) - 1
+
+    
+        #st.write('x_lim_max_std:', x_lim_max_std2)
+        #st.write('x_lim_min_std:', x_lim_min_std2)
+
+        # Calculation H critical
+        n2 = len(leverage_train2)
+        p2 = df_train_normalized2.shape[1]
+        h_value2 = 3 * (p2 + 1) / n2
+        h_critical2 = round(h_value2, 4)
+        #st.write('Number of cases training:', n)
+        #st.write('Number of variables:', p)
+        #st.write('h_critical:', h_critical)
+
+        # Getting maximum leverage value
+        if leverage_train2.max() < h_critical2:
+            x_lim_max_lev2 = h_critical2 + h_critical2 * 0.5
+        elif leverage_train2.max() > h_critical2:
+            x_lim_max_lev2 = leverage_train2.max() + (leverage_train2.max()) * 0.1
+
+        # Getting minimum leverage value
+        if leverage_train2.min() < 0:
+            x_lim_min_lev2 = x_lev_min2 - x_lev_min2 * 0.05
+        elif leverage_train2.min() > 0:
+            x_lim_min_lev2 = 0
+
+        #st.write('x_lim_max_lev:', x_lim_max_lev2)
+
+        return x_lim_max_std2, x_lim_min_std2, h_critical2, x_lim_max_lev2, x_lim_min_lev2
+
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+
+def williams_plot2(leverage_train2, leverage_test2, std_residual_train2, std_residual_test2,id_list_1,
+                  plot_color='cornflowerblue', show_plot=True, save_plot=False, filename=None, add_title=False, title=None):
+    fig2 = go.Figure()
+
+    # Add training data points
+    fig2.add_trace(go.Scatter(
+        x=leverage_train2,
+        y=std_residual_train2,
+        mode='markers',
+        marker=dict(color='cornflowerblue', size=10, line=dict(width=1, color='black')),
+        name='Training'
+    ))
+
+    # Add test data points
+    fig2.add_trace(go.Scatter(
+        x=leverage_test2,
+        y=std_residual_test2,
+        mode='markers',
+        marker=dict(color='orange', size=10, line=dict(width=1, color='black')),
+        name='Prediction',
+        text = id_list_1, # Add compounds IDs for hover
+        hoverinfo = 'text' #Show only the text when hovering
+    ))
+
+    # Add horizontal and vertical dashed lines
+    fig2.add_shape(type='line', x0=h_critical, y0=x_lim_min_std, x1=h_critical, y1=x_lim_max_std,
+                  line=dict(color='black', dash='dash'))
+    fig2.add_shape(type='line', x0=x_lim_min_lev, y0=3, x1=x_lim_max_lev, y1=3,
+                  line=dict(color='black', dash='dash'))
+    fig2.add_shape(type='line', x0=x_lim_min_lev, y0=-3, x1=x_lim_max_lev, y1=-3,
+                  line=dict(color='black', dash='dash'))
+
+    # Add rectangles for outlier zones
+    fig2.add_shape(type='rect', x0=x_lim_min_lev, y0=x_lim_min_std, x1=h_critical, y1=-3,
+                  fillcolor='lightgray', opacity=0.4, line_width=0)
+    fig2.add_shape(type='rect', x0=x_lim_min_lev, y0=3, x1=h_critical, y1=x_lim_max_std,
+                  fillcolor='lightgray', opacity=0.4, line_width=0)
+                      
+    fig2.add_shape(type='rect', x0=h_critical, y0=x_lim_min_std, x1=x_lim_max_lev, y1=-3,
+                  fillcolor='lightgray', opacity=0.4, line_width=0)
+    fig2.add_shape(type='rect', x0=h_critical, y0=3, x1=x_lim_max_lev, y1=x_lim_max_std,
+                  fillcolor='lightgray', opacity=0.4, line_width=0)
+
+    # Add annotations for outlier zones
+    fig2.add_annotation(x=(h_critical + x_lim_min_lev) / 2, y=-3.5, text='Outlier zone', showarrow=False,
+                       font=dict(size=15))
+    fig2.add_annotation(x=(h_critical + x_lim_min_lev) / 2, y=3.5, text='Outlier zone', showarrow=False,
+                       font=dict(size=15))
+    fig2.add_annotation(x=(h_critical + x_lim_max_lev) / 2, y=-3.5, text='Outlier zone', showarrow=False,
+                       font=dict(size=15))
+    fig2.add_annotation(x=(h_critical + x_lim_max_lev) / 2, y=3.5, text='Outlier zone', showarrow=False,
+                       font=dict(size=15))
+
+    # Update layout
+    fig2.update_layout(
+        width=600,
+        height=600,
+        xaxis=dict(title='Leverage', range=[x_lim_min_lev2, x_lim_max_lev2], tickfont=dict(size=15)),
+        yaxis=dict(title='Std Residuals', range=[x_lim_min_std2, x_lim_max_std2], tickfont=dict(size=15)),
+        legend=dict(x=0.99, y=0.825, xanchor='right', yanchor='top', font=dict(size=20)),
+        showlegend=True
+    )
+
+    if add_title and title:
+        fig2.update_layout(title=dict(text=title, font=dict(size=20)))
+
+    if save_plot and filename:
+        fig2.write_image(filename)
+
+    if show_plot:
+        fig2.show()
+
+    return fig2
 
 run = st.button("Make prediction for the SBMA PDMS system")
 if run == True:
