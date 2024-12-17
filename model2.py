@@ -39,25 +39,31 @@ def mixture_descriptors2(data21, data22,sbma_mw,pdms_mw):
     
 
     # Multiply corresponding rows in data1 and data2 for all columns
-    df_mixture_left2 = component1* test_data21
-    df_mixture_right2 = component2* test_data22
+    st.write(component1)
+    #df_mixture_left2 = component1* test_data21
+    #df_mixture_right2 = component2* test_data22
 
-    df_mixture_left2 = df_mixture_left2.reset_index(drop=True)
-    df_mixture_right2 = df_mixture_right2.reset_index(drop=True)
+    #df_mixture_left2 = df_mixture_left2.reset_index(drop=True)
+    #df_mixture_right2 = df_mixture_right2.reset_index(drop=True)
     
     # Sum the DataFrames row-wise by column name
-    df_sum_mixture_ini2 = df_mixture_left2.add(df_mixture_right2)
+    #df_sum_mixture_ini2 = df_mixture_left2.add(df_mixture_right2)
+    
     # Remove the column index from the dataframe 
-    df_sum_mixture_ini2 = df_sum_mixture_ini2.iloc[:,0:]
+    #df_sum_mixture_ini2 = df_sum_mixture_ini2.iloc[:,0:]
+    
     #st.write('dataframe mixture descriptors')
     #st.dataframe(df_sum_mixture_ini)
     #st.write(choice)
+    
     # Multiply the DataFrame by the selected percentage
-    df_sum_mixture2 = df_sum_mixture_ini2 * percentage
+    #df_sum_mixture2 = df_sum_mixture_ini2 * percentage
+    
     #st.write('dataframe  by percent added')
     #st.dataframe(df_sum_mixture)
 
-    return df_sum_mixture2
+    return component1
+    #return df_sum_mixture2
 
 
 def normalize_data2(train_data2, test_data2):
