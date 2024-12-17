@@ -141,8 +141,8 @@ def mixture_descriptors(data1, data2):
     df_mixture_left = component1* test_data1
     df_mixture_right = component2* test_data2
 
-    st.dataframe(df_mixture_left)
-    st.dataframe(df_mixture_right)
+    #st.dataframe(df_mixture_left)
+    #st.dataframe(df_mixture_right)
 
     df_mixture_left = df_mixture_left.reset_index(drop=True)
     df_mixture_right = df_mixture_right.reset_index(drop=True)
@@ -151,13 +151,13 @@ def mixture_descriptors(data1, data2):
     df_sum_mixture_ini = df_mixture_left.add(df_mixture_right)
     # Remove the column index from the dataframe 
     df_sum_mixture_ini = df_sum_mixture_ini.iloc[:,0:]
-    st.write('dataframe mixture descriptors')
-    st.dataframe(df_sum_mixture_ini)
-    st.write(choice)
+    #st.write('dataframe mixture descriptors')
+    #st.dataframe(df_sum_mixture_ini)
+    #st.write(choice)
     # Multiply the DataFrame by the selected percentage
     df_sum_mixture = df_sum_mixture_ini * percentage
-    st.write('dataframe  by percent added')
-    st.dataframe(df_sum_mixture)
+    #st.write('dataframe  by percent added')
+    #st.dataframe(df_sum_mixture)
 
     return df_sum_mixture
 
@@ -174,11 +174,11 @@ def normalize_data(train_data, test_data):
     np_test_scaled = min_max_scaler.transform(test_data)
     df_test_normalized = pd.DataFrame(np_test_scaled, columns=saved_cols)
 
-    st.write('Normalized data')
-    st.dataframe(df_test_normalized)
+    #st.write('Normalized data')
+    #st.dataframe(df_test_normalized)
 
-    st.write('Train normalized')
-    st.dataframe(df_train_normalized.head(5))
+    #st.write('Train normalized')
+    #st.dataframe(df_train_normalized.head(5))
                  
     return df_train_normalized, df_test_normalized
 
