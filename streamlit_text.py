@@ -521,10 +521,10 @@ if run == True:
 
         with col1:
             #st.header(f"Fouling Release SBMA-PDMS at {percentage}%")
-            st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
-            st.subheader(r'Predictions')
+            #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
+            st.subheader(f"Fouling Release SBMA-PDMS at {percentage}%")
             st.write(styled_df)
-            st.markdown("<h2 style='text-align: center; font-size: 30px;'>f'Fouling Release SBMA-PDMS at {percentage}%'</h2>", unsafe_allow_html=True)
+            #st.markdown("<h2 style='text-align: center; font-size: 30px;'>f'Fouling Release SBMA-PDMS at {percentage}%'</h2>", unsafe_allow_html=True)
             #st.plotly_chart(figure,use_container_width=True)
             #st.markdown(":point_down: **Here you can download the results for Salt Water model**", unsafe_allow_html=True,)
             #st.markdown(filedownload1(final_file), unsafe_allow_html=True)
