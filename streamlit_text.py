@@ -58,7 +58,7 @@ from PIL import Image
 import uuid
 #from filelock import Timeout, FileLock
 
-from model2 import *
+#from model2 import *
 
 #%% PAGE CONFIG
 
