@@ -512,7 +512,7 @@ if run == True:
         st.write(sbma_mw)
     
         #Calculating mixture descriptors    
-        #test_data_mix21= mixture_descriptors2(test_data21,test_data22,sbma_mw,pdms_mw)
+        test_data_mix21= mixture_descriptors2(test_data21,test_data22,fraction_sbma,fraction_pdms)
         #X_final22= test_data_mix21
         #df_train_normalized2, df_test_normalized2 = normalize_data2(train_data2, X_final22)               
 
