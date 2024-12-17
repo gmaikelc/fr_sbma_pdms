@@ -107,8 +107,8 @@ pdms_mw_unit = 92.12
 fraction_sbma = sbma_mw/sbma_mw_unit
 fraction_pdms = pdms_mw/pdms_mw_unit
 
-st.write('fraction sbma:', fraction_sbma)
-st.write('fraction pdms:', fraction_pdms)
+#st.write('fraction sbma:', fraction_sbma)
+#st.write('fraction pdms:', fraction_pdms)
 
 descriptors_sbma_pdms = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
 
