@@ -617,7 +617,7 @@ def predictions2(loaded_model2, loaded_desc2, df_test_normalized2):
     scores2 = []
     h_values2 = []
     std_resd2 = []
-    idx2 = data2['ID']
+    idx2 = data['ID']
     
 
     #descriptors_model = loaded_desc
