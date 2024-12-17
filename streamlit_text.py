@@ -519,10 +519,10 @@ def mixture_descriptors2(data21, data22):
 def normalize_data2(train_data2, test_data2):
     # Normalize the training data
     df_train2 = pd.DataFrame(train_data2)
-    saved_cols = df_train2.columns
+    saved_cols2 = df_train2.columns
     min_max_scaler2 = preprocessing.MinMaxScaler().fit(df_train2)
     np_train_scaled2 = min_max_scaler2.transform(df_train2)
-    df_train_normalized2 = pd.DataFrame(np_train_scaled2, columns=saved_cols)
+    df_train_normalized2 = pd.DataFrame(np_train_scaled2, columns=saved_cols2)
 
     # Normalize the test data using the scaler fitted on training data
     np_test_scaled2 = min_max_scaler2.transform(test_data2)
