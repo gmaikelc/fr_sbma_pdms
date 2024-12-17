@@ -626,7 +626,7 @@ def predictions2(loaded_model2, loaded_desc2, df_test_normalized2):
         # Simulate a long-running computation
         time.sleep(1)  # Sleep for 5 seconds to mimic computation
         
-        y_train2=data_train_2['c_lytica_removal_at_20psi']
+        y_train2=data_train_2['c_lytica_removal_at_10psi']
         X2 = df_test_normalized2
         #X = df_test_normalized[descriptors_model]
         loaded_model.fit(df_train_normalized2,y_train2)
