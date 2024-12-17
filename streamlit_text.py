@@ -694,19 +694,15 @@ def calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max=4, 
         time.sleep(1)  # Sleep for 5 seconds to mimic computation
         # Getting maximum std value
         if std_residual_train2.max() < 4:
-            x_lim_max_std2 = x_std_max2
+            x_lim_max_std2 = x_std_max
         elif std_residual_train2.max() > 4:
             x_lim_max_std2 = round(std_residual_train2.max()) + 1
 
         # Getting minimum std value
         if std_residual_train2.min() > -4:
-            x_lim_min_std2 = x_std_min2
+            x_lim_min_std2 = x_std_min
         elif std_residual_train2.min() < 4:
             x_lim_min_std2 = round(std_residual_train2.min()) - 1
-
-    
-        #st.write('x_lim_max_std:', x_lim_max_std2)
-        #st.write('x_lim_min_std:', x_lim_min_std2)
 
         # Calculation H critical
         n2 = len(leverage_train2)
