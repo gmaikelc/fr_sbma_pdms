@@ -896,7 +896,7 @@ if run == True:
             #st.markdown(":point_down: **Here you can download the results for  model**", unsafe_allow_html=True,)
             #st.markdown(filedownload1(final_file), unsafe_allow_html=True)
         with col4:
-            st.header(f"Model in progress"))
+            st.header(f"Model in progress")
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
             #st.subheader(f"[SBMA-{sbma_mw}]-[PDMS-{pdms_mw}] at {percentage}%")
             #st.write(styled_df2)
