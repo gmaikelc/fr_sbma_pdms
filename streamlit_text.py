@@ -509,7 +509,7 @@ if run == True:
 
         st.dataframe(test_data21)
         st.dataframe(test_data22)
-        st.write(sbma_mw)
+        st.write(fraction_sbma)
     
         #Calculating mixture descriptors    
         test_data_mix21= mixture_descriptors2(test_data21,test_data22,fraction_sbma,fraction_pdms)
