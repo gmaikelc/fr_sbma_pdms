@@ -857,36 +857,29 @@ if run == True:
 
         st.dataframe(test_data21)
         st.dataframe(test_data22)
-        st.write(fraction_sbma)
-    
+           
         #Calculating mixture descriptors    
         test_data_mix21= mixture_descriptors2(test_data21,test_data22,fraction_sbma,fraction_pdms)
-        #X_final22= test_data_mix21
-        #df_train_normalized2, df_test_normalized2 = normalize_data2(train_data2, X_final22)               
-
-        #st.dataframe(data_train_1.head(5))
-    
-        #st.write(loaded_desc)
-    
-        #st.write(loaded_model)
+        X_final22= test_data_mix21
+        df_train_normalized2, df_test_normalized2 = normalize_data2(train_data2, X_final22)               
 
         final_file, styled_df,leverage_train,std_residual_train, leverage_test, std_residual_test= predictions(loaded_model, loaded_desc, df_test_normalized)
-        #final_file2, styled_df2,leverage_train2,std_residual_train2, leverage_test2, std_residual_test2= predictions2(loaded_model2, loaded_desc2, df_test_normalized2)
+        final_file2, styled_df2,leverage_train2,std_residual_train2, leverage_test2, std_residual_test2= predictions2(loaded_model2, loaded_desc2, df_test_normalized2)
         
         x_lim_max_std, x_lim_min_std, h_critical, x_lim_max_lev, x_lim_min_lev = calculate_wp_plot_limits(leverage_train,std_residual_train, x_std_max=4, x_std_min=-4)
-        #x_lim_max_std2, x_lim_min_std2, h_critical2, x_lim_max_lev2, x_lim_min_lev2 = calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max2=4, x_std_min2=-4)
+        x_lim_max_std2, x_lim_min_std2, h_critical2, x_lim_max_lev2, x_lim_min_lev2 = calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max2=4, x_std_min2=-4)
         
         figure  = williams_plot(leverage_train, leverage_test, std_residual_train, std_residual_test,id_list_1)
-        #figure2  = williams_plot2(leverage_train2, leverage_test2, std_residual_train2, std_residual_test2,id_list_2)
+        figure2  = williams_plot2(leverage_train2, leverage_test2, std_residual_train2, std_residual_test2,id_list_2)
 
         col1, col2 = st.columns(2)
 
         with col1:
-            #st.header(f"Fouling Release SBMA-PDMS at {percentage}%")
+            #st.header(f"[SBMA-{sbma_mw}]-[PDMS-{pdms_mw}] at {percentage}%")
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
             st.subheader(f"Fouling Release SBMA-PDMS at {percentage}%")
             st.write(styled_df)
-            st.markdown("<h2 style='text-align: center; font-size: 30px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
+            st.markdown("<h2 style='text-align: center; font-size: 24px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
             st.plotly_chart(figure,use_container_width=True)
             #st.markdown(":point_down: **Here you can download the results for Salt Water model**", unsafe_allow_html=True,)
             #st.markdown(filedownload1(final_file), unsafe_allow_html=True)
@@ -894,9 +887,9 @@ if run == True:
             #st.header("Fresh Water")
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
             st.subheader(f"Fouling Release SBMA-PDMS at {percentage}%")
-            #st.write(styled_df2)
-            st.markdown("<h2 style='text-align: center; font-size: 30px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
-            #st.plotly_chart(figure2,use_container_width=True)
+            st.write(styled_df2)
+            st.markdown("<h2 style='text-align: center; font-size: 24px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
+            st.plotly_chart(figure2,use_container_width=True)
             #st.markdown(":point_down: **Here you can download the results for Fresh Water model**", unsafe_allow_html=True,)
             #st.markdown(filedownload2(final_file2), unsafe_allow_html=True)
 
