@@ -539,7 +539,7 @@ if run == True:
         with col2:
             #st.header("Fresh Water")
             #st.markdown("<hr style='border: 1px solid blue;'>", unsafe_allow_html=True)
-            st.subheader(Fouling Release SBMA-PDMS at {percentage}%)
+            st.subheader(f"Fouling Release SBMA-PDMS at {percentage}%")
             st.write(styled_df2)
             st.markdown("<h2 style='text-align: center; font-size: 30px;'>William's Plot (Applicability Domain)</h2>", unsafe_allow_html=True)
             st.plotly_chart(figure2,use_container_width=True)
