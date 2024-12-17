@@ -180,7 +180,7 @@ def predictions2(loaded_model, loaded_desc, df_test_normalized):
     
         # Create y_true array with all elements set to mean value and the same length as y_pred
         y_pred_test = predictions
-        y_test = np.full_like(y_pred_test, mean_value)
+        y_test = np.full_like(y_pred_test, mean_value2)
         residuals_test = y_test -y_pred_test
 
         std_dev_test = np.sqrt(mean_squared_error(y_test, y_pred_test))
