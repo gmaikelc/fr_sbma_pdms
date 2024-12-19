@@ -31,6 +31,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn import preprocessing
 from sklearn.metrics import mean_squared_error
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import GradientBoostingRegressor
 
 
 # packages for streamlit
@@ -544,7 +545,7 @@ def applicability_domain2(df_test_normalized2, df_train_normalized2):
     # Add a small value to the diagonal
     epsilon = 1e-10
     XTX2 = X_train2.T @ X_train2
-    XTX2 += np.eye(XTX2.shape[0]) * epsilon
+    #XTX2 += np.eye(XTX2.shape[0]) * epsilon
 
     # Compute the hat matrix
     hat_matrix_train2 = X_train2 @ np.linalg.inv(XTX2) @ X_train2.T
@@ -565,14 +566,15 @@ def applicability_domain2(df_test_normalized2, df_train_normalized2):
     from sklearn.metrics import mean_squared_error
 
     # Train a random forest model
-    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.ensemble import GradientBoostingRegressor
 
-    lr2 = RandomForestRegressor(
-        n_estimators=100,        # Number of trees in the forest
-        max_depth=10,           # Max depth of each tree
-        min_samples_split=2,    # Minimum samples required to split an internal node
-        random_state=42         # For reproducibility
-    )
+    lr2 = model = GradientBoostingRegressor(
+        n_estimators=100,    # Number of trees
+        learning_rate=0.1,   # Step size shrinkage
+        max_depth=3,         # Maximum depth of each tree
+        random_state=42   # For reproducibility
+        )       
+    
     
     lr2.fit(df_train_normalized2, y_train2)
     y_pred_train2 = lr2.predict(df_train_normalized2)
@@ -841,10 +843,10 @@ if run == True:
 
          #Data C. lytica at 10 psi
         descriptors_sbma_pdms2 = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
-        data_train_2 = pd.read_csv("data/" + "dataset_clytica10psi_original_asc_Series_p1_traininig.csv")
-        mean_value2 = data_train_2['c_lytica_removal_at_10psi'].mean()
-        loaded_model2 = pickle.load(open("models/" + "model_clyt_10psi_rf.pickle", 'rb'))
-        loaded_desc2 = pickle.load(open("models/" + "descriptor_clyt_10psi_rf.pickle", 'rb'))
+        data_train_2 = pd.read_csv("data/" + "dataset_clytica20psi_original_asc_Series_p2_traininig.csv")
+        mean_value2 = data_train_2['c_lytica_removal_at_20psi'].mean()
+        loaded_model2 = pickle.load(open("models/" + "grb_model_clytica20psi.pickle", 'rb'))
+        loaded_desc2 = pickle.load(open("models/" + "gbr_descriptor_clytica20psi.pickle", 'rb'))
         train_data2 = data_train_2[loaded_desc]
         #Selecting the descriptors based on model for first component
       
