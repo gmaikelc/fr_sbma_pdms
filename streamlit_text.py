@@ -104,7 +104,7 @@ if percentage < 0.2 or percentage > 5.0:
 # Convert the selected percentage to a float
 #percentage = float(choice.strip('%'))
 
-st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pdms_mw} for PDMS molecular weight, and selected {choice} as percent to be added.")
+st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pdms_mw} for PDMS molecular weight, and selected {percentage} as percent to be added.")
 
 sbma_mw_unit = 280.41
 pdms_mw_unit = 92.12
