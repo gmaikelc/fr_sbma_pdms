@@ -82,22 +82,27 @@ col1, col2, col3 = st.columns(3)
 col4, col5, col6 = st.columns(3)
 
 # Input for 'SBMA molecular weight'
-sbma_mw = col1.number_input('SBMA molecular weight',max_value=6000.0)
+sbma_mw = col1.number_input('SBMA molecular weight',max_value=5000.0)
 
-if sbma_mw < 280.41 or sbma_mw > 6000.0:
-    col4.error("SBMA molecular weight must be between 280.41 and 6000.0.")
+if sbma_mw < 280.41 or sbma_mw > 5000.0:
+    col4.error("SBMA molecular weight must be between 280.41 and 5000.0.")
 
-# Input for 'Percent'
-pdms_mw = col2.number_input('PDMS molecular weight',max_value=11000.0)
-if pdms_mw < 92.12 or pdms_mw > 11000.0:
-    col5.error("PDMS molecular weight must be between 92.12 and 11000.0.")
+# Input for 'PDMS molecular weight'
+pdms_mw = col2.number_input('PDMS molecular weight',max_value=10000.0)
+if pdms_mw < 92.12 or pdms_mw > 10000.0:
+    col5.error("PDMS molecular weight must be between 92.12 and 10000.0.")
+
+# Input for 'Percentage'
+percentage = col3.number_input('Additive percent to add to the coating',max_value=5.0)
+if percentage < 0.2 or percentage > 5.0:
+    col6.error("Additive percentage must be between 0.2 and 5.0.")
 
 # Dropdown for 'PM' and 'DP'
-options = ['0.2%', '1%','5%']
-choice = col3.selectbox('Additive percent to add to the coating', options)
+#options = ['0.2%', '1%','5%']
+#choice = col3.selectbox('Additive percent to add to the coating', options)
 
 # Convert the selected percentage to a float
-percentage = float(choice.strip('%'))
+#percentage = float(choice.strip('%'))
 
 st.write(f"You entered {sbma_mw} for SBMA molecular weight, {pdms_mw} for PDMS molecular weight, and selected {choice} as percent to be added.")
 
