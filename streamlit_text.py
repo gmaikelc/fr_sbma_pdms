@@ -286,7 +286,7 @@ def predictions(loaded_model, loaded_desc, df_test_normalized):
 
     #descriptors_model = loaded_desc
     # Placeholder for the spinner
-    with st.spinner('CALCULATING PREDICTIONS (STEP 2 OF 3)...'):
+    with st.spinner('CALCULATING PREDICTIONS (STEP 1 OF 2)...'):
         # Simulate a long-running computation
         time.sleep(1)  # Sleep for 5 seconds to mimic computation
         
@@ -639,11 +639,11 @@ def predictions2(loaded_model2, loaded_desc2, df_test_normalized2):
 
     #descriptors_model = loaded_desc
     # Placeholder for the spinner
-    with st.spinner('CALCULATING PREDICTIONS (STEP 2 OF 3)...'):
+    with st.spinner('CALCULATING PREDICTIONS (STEP 1 OF 2)...'):
         # Simulate a long-running computation
         time.sleep(1)  # Sleep for 5 seconds to mimic computation
         
-        y_train2=data_train_2['c_lytica_removal_at_10psi']
+        y_train2=data_train_2['c_lytica_removal_at_20psi']
         X2 = df_test_normalized2
         #X = df_test_normalized[descriptors_model]
         loaded_model.fit(df_train_normalized2,y_train2)
@@ -706,7 +706,7 @@ def predictions2(loaded_model2, loaded_desc2, df_test_normalized2):
 #Calculating the William's plot limits
 def calculate_wp_plot_limits2(leverage_train2,std_residual_train2, x_std_max=4, x_std_min=-4):
     
-    with st.spinner('CALCULATING APPLICABILITY DOMAIN (STEP 3 OF 3)...'):
+    with st.spinner('CALCULATING APPLICABILITY DOMAIN (STEP 2 OF 2)...'):
         # Simulate a long-running computation
         time.sleep(1)  # Sleep for 5 seconds to mimic computation
         # Getting maximum std value
