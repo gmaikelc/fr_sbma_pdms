@@ -548,7 +548,7 @@ def normalize_data2(train_data2, test_data2):
 
 
 def applicability_domain2(df_test_normalized2, df_train_normalized2):
-    y_train2=data_train_2['c_lytica_removal_at_10psi']
+    y_train2=data_train_2['c_lytica_removal_at_20psi']
     X_train2 = df_train_normalized2.values
     X_test2 = df_test_normalized2.values
 
