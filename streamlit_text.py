@@ -58,6 +58,10 @@ import time
 import subprocess
 from PIL import Image
 import uuid
+
+import sklearn
+
+
 #from filelock import Timeout, FileLock
 
 #from model2 import *
@@ -116,7 +120,11 @@ fraction_pdms = pdms_mw/pdms_mw_unit
 
 #st.write('fraction sbma:', fraction_sbma)
 #st.write('fraction pdms:', fraction_pdms)
+# Get the scikit-learn version
+version = sklearn.__version__
 
+# Display the version in the Streamlit app
+st.write(f"scikit-learn version: {version}")
 descriptors_sbma_pdms = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
 
 def reading_reorder(data, loaded_desc):
