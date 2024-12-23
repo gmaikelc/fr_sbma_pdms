@@ -670,7 +670,9 @@ def predictions2(loaded_model2, loaded_desc2, df_test_normalized2):
         dataframe_pred2 = pd.DataFrame(scores2).T
         dataframe_pred2.index = idx2
         dataframe_pred2.rename(columns={0: "C. lytica percent removal at 20 psi"},inplace=True)
-    
+        
+        dataframe_pred2['C. lytica percent removal at 20 psi'] = dataframe_pred2['C. lytica percent removal at 20 psi'].round(2)
+        
         dataframe_std2 = pd.DataFrame(std_resd2).T
         dataframe_std2.index = idx2
           
