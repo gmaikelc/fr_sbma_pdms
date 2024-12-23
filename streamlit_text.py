@@ -555,7 +555,7 @@ def applicability_domain2(df_test_normalized2, df_train_normalized2):
     # Add a small value to the diagonal
     epsilon = 1e-10
     XTX2 = X_train2.T @ X_train2
-    #XTX2 += np.eye(XTX2.shape[0]) * epsilon
+    XTX2 += np.eye(XTX2.shape[0]) * epsilon
 
     # Compute the hat matrix
     hat_matrix_train2 = X_train2 @ np.linalg.inv(XTX2) @ X_train2.T
