@@ -847,7 +847,7 @@ if run == True:
         data_train_2 = pd.read_csv("data/" + "dataset_clytica20psi_original_asc_Series_p2_traininig.csv")
         mean_value2 = data_train_2['c_lytica_removal_at_20psi'].mean()
     
-        loaded_model2 = joblib.load(open("models/" + 'grb_model_clytica20psi.joblib"))
+        loaded_model2 = joblib.load(open("models/" + "grb_model_clytica20psi.joblib"))
         #loaded_model2 = pickle.load(open("models/" + "grb_model_clytica20psi.pickle", 'rb'))
     
         #loaded_model2 = pickle.load(open("models/" + "grb_model_clytica20psi.pickle", 'rb'))
