@@ -829,6 +829,8 @@ if run == True:
 
         ID='1'
         data = pd.DataFrame({'ID': [ID],})
+        # Transform the ID to the desired format
+        data['ID'] = data['ID'].apply(lambda x: f"SBMA{sbma_mw}_PDMS{pdms_mw}_at_{percentage}")
 
         #Data C. lytica at 10 psi
         descriptors_sbma_pdms = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
