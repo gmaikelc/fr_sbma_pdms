@@ -845,6 +845,7 @@ if run == True:
         descriptors_sbma_pdms2 = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
         data_train_2 = pd.read_csv("data/" + "dataset_clytica20psi_original_asc_Series_p2_traininig.csv")
         mean_value2 = data_train_2['c_lytica_removal_at_20psi'].mean()
+
         loaded_model2 = pickle.load(open("models/" + "grb_model_clytica20psi.pickle", 'rb'))
         loaded_desc2 = pickle.load(open("models/" + "gbr_descriptor_clytica20psi.pickle", 'rb'))
         train_data2 = data_train_2[loaded_desc2]
