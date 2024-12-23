@@ -120,11 +120,12 @@ fraction_pdms = pdms_mw/pdms_mw_unit
 
 #st.write('fraction sbma:', fraction_sbma)
 #st.write('fraction pdms:', fraction_pdms)
-# Get the scikit-learn version
-version = sklearn.__version__
 
+# Get the scikit-learn version
+#version = sklearn.__version__
 # Display the version in the Streamlit app
-st.write(f"scikit-learn version: {version}")
+#st.write(f"scikit-learn version: {version}")
+
 descriptors_sbma_pdms = pd.read_csv("data/" + "descriptors_sbma_pdms.csv")
 
 def reading_reorder(data, loaded_desc):
@@ -855,9 +856,9 @@ if run == True:
         data_train_2 = pd.read_csv("data/" + "dataset_clytica20psi_original_asc_Series_p2_traininig.csv")
         mean_value2 = data_train_2['c_lytica_removal_at_20psi'].mean()
 
-        loaded_model2 = joblib.load("models/grb_model_clytica20psi.joblib")
+        #loaded_model2 = joblib.load("models/grb_model_clytica20psi.joblib")
         #loaded_model2 = joblib.load(open("models/grb_model_clytica20psi.joblib"))
-        #loaded_model2 = pickle.load(open("models/" + "grb_model_clytica20psi.pickle", 'rb'))
+        loaded_model2 = pickle.load(open("models/" + "grb_model_clytica20psi.pickle", 'rb'))
     
         loaded_desc2 = pickle.load(open("models/" + "gbr_descriptor_clytica20psi.pickle", 'rb'))
         train_data2 = data_train_2[loaded_desc2]
